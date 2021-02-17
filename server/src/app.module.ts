@@ -4,7 +4,10 @@ import { AppService } from './app.service';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {GraphQLModule} from '@nestjs/graphql';
 import {join} from 'path';
-import {PrismaService} from "./prisma.service";
+import {PrismaService} from "./db/prisma.service";
+import {UserController} from "./user/user.controller";
+import {UserService} from "./user/user.service";
+import {UserResolver} from "./user/user.resolver";
 
 @Module({
   imports: [
@@ -14,14 +17,20 @@ import {PrismaService} from "./prisma.service";
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       definitions: {
-        path: join(process.cwd(), 'src/graphql.ts'),
+        path: join(process.cwd(), 'src/db/graphql.ts'),
       },
+        path: '/api'
     })
   ],
-  controllers: [AppController],
+  controllers: [
+      AppController,
+      UserController
+  ],
   providers: [
       AppService,
-      PrismaService
+      PrismaService,
+      UserService,
+      UserResolver
   ],
 })
 export class AppModule {}

@@ -1,0 +1,11 @@
+type Reservation {
+    id: String!
+    userId: String!
+    time: String!
+    location: String!
+}
+
+type ReservationQuery {
+    allReservations(userId: String!): [Reservation]
+    myReservations(userId: String!): [Reservation]
+}
