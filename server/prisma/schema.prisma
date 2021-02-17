@@ -15,6 +15,7 @@ model User {
     username        String          @unique
     password        String
     created         DateTime        @default(now())
+    status          String
     friends         Friend[]
     reservations    Reservation[]
 }
@@ -29,6 +30,8 @@ model Friend {
 
 model Reservation {
     id          String      @id @default(uuid())
+    userId      String
+    owner       User        @relation(fields: [userId], references: [userId])
     time        DateTime
     location    String
 }
