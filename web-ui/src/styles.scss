@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./styles/flex";
+@import "styles/variables";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  padding: 0 16px;
+}
+
+@each $color, $value in $colors {
+  .bg-#{$color} {
+    background: $value;
+  }
+}
