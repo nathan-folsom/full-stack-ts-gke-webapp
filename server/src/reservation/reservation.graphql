@@ -5,7 +5,7 @@ type Reservation {
     location: String!
 }
 
-type ReservationQuery {
+extend type Query {
     allReservations(userId: String!): [Reservation]
     myReservations(userId: String!): [Reservation]
 }
