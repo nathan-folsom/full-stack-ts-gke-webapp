@@ -12,6 +12,11 @@ export class UserResolver {
         return this.userService.getUser(id);
     }
 
+    @Query('login')
+    async login(@Args('username') username: string, @Args('password') password: string) {
+        return this.userService.login(username, password);
+    }
+
     @Mutation('createUser')
     async createUser(@Args('user') input: CreateUserInput): Promise<User> {
         return this.userService.createUser(input);

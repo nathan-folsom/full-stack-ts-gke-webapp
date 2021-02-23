@@ -23,8 +23,9 @@ export interface IMutation {
 }
 
 export interface IQuery {
-    user(id: string): User | Promise<User>;
     reservation(): ReservationQuery | Promise<ReservationQuery>;
+    login(username: string, password: string): User | Promise<User>;
+    user(id: string): User | Promise<User>;
 }
 
 export interface Reservation {

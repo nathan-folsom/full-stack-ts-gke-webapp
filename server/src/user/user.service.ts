@@ -1,6 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {PrismaService} from "../db/prisma.service";
 import {User, UserStatus} from "../db/graphql";
+import {UserEntity} from "@prisma/client";
 
 @Injectable()
 export class UserService {
@@ -8,17 +9,29 @@ export class UserService {
     }
 
     getUser = (userId: string, includeOwnReservations?: boolean, includeFriends?: boolean) => {
-        return this.db.user.findUnique(
+        return this.db.userEntity.findUnique(
             {
                 where: {userId},
                 include: {reservations: !!includeOwnReservations, friends: !!includeFriends}
             })
     }
 
+    login = async (username: string, password: string) => {
+        const user: UserEntity = await this.db.userEntity.findUnique({
+            where: {
+                username
+            }
+        });
+        if (user && user.password === password) {
+            return user
+        }
+        return undefined
+    }
+
     createUser = async (input): Promise<User> => {
-        console.log(input);
         const {username, password} = input;
-        const user = await this.db.user.create({
+        console.log(`creating user with username '${username}'`);
+        const user = await this.db.userEntity.create({
             data: {username, password, status: UserStatus.ACTIVE},
             select: {username: true, userId: true, status: true, created: true}
         })
