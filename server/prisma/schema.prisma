@@ -7,28 +7,29 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
+model UserEntity {
     userId          String          @id @default(uuid())
     username        String          @unique
     password        String
-    created         DateTime        @default(now())
-    email           String
+    created         DateTime?        @default(now())
+    email           String?
     status          String
-    friends         Friend[]
-    reservations    Reservation[]
+    friends         FriendEntity[]
+    reservations    ReservationEntity[]
 }
 
-model Friend {
-    id          String      @id @default(uuid())
+model FriendEntity {
+    id          String            @id @default(uuid())
     userId      String
     toUserId    String
-    created     DateTime    @default(now())
-    owner       User        @relation(fields: [userId], references: [userId])
+    created     DateTime?          @default(now())
+    owner       UserEntity        @relation(fields: [userId], references: [userId])
 }
 
-model Reservation {
+model ReservationEntity {
     id          String      @id @default(uuid())
     userId      String
     time        DateTime
     location    String
+    message     String
 }
