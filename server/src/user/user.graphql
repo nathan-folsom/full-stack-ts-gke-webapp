@@ -17,12 +17,12 @@ enum UserStatus {
     ADMIN
 }
 
-extend type Query {
+type Query {
     login(username: String!, password: String!): User
     user(id: String!): User
 }
 
-extend type Mutation {
+type Mutation {
     createUser(user: CreateUserInput): User
     createRandomUser: User
 }
