@@ -1,36 +1,28 @@
 <div class="container">
   <div class="col">
     <div class="flex bg-light">
-      <h1>Gymbuds</h1>
+      <div class="row align-items-center">
+        <h1 class="flex grow-1">Gymbuds</h1>
+        <div class="flex">
+          <div
+            [ngStyle]="{background: (loggedIn$ | async)?.data.sessionIsActive ? '#0f0' : '#f00', width: '20px', height: '20px'}"></div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row justify-content-center">
-    <ng-container *ngIf="user$ | async as user">
-      <ng-container *ngIf="user.loading else home">
-        <p>Loading...</p>
-      </ng-container>
-      <ng-template #home>
-        <ng-container *ngIf="user.data.login?.username else login">
-          <div class="flex">
-            <h3>Welcome, {{user.data.login.username}}</h3>
-          </div>
-        </ng-container>
-        <ng-template #login>
-          <div class="col">
-            <div class="flex">
-              <h3>Create an account</h3>
-            </div>
-            <label class="flex">
-              <input type="text" [(ngModel)]="accountInputs.username" placeholder="username...">
-            </label>
-            <label class="flex">
-              <input type="text" [(ngModel)]="accountInputs.password" placeholder="password...">
-            </label>
-            <button (click)="createAccount()">Create</button>
-            <button (click)="logIn()">Login</button>
-          </div>
-        </ng-template>
-      </ng-template>
-    </ng-container>
+    <div class="col">
+      <div class="flex">
+        <h3>Create an account</h3>
+      </div>
+      <label class="flex">
+        <input type="text" [(ngModel)]="accountInputs.username" placeholder="username...">
+      </label>
+      <label class="flex">
+        <input type="password" [(ngModel)]="accountInputs.password" placeholder="password...">
+      </label>
+      <button (click)="createAccount()">Create</button>
+      <button (click)="logIn()">Login</button>
+    </div>
   </div>
 </div>

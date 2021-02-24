@@ -1,0 +1,9 @@
+type Session {
+    token: String!
+    userId: String!
+    active: Boolean!
+}
+
+extend type Query {
+    sessionIsActive: Boolean
+}

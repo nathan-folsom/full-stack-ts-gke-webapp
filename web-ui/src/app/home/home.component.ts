@@ -11,11 +11,13 @@ import {Observable} from "rxjs";
 })
 export class HomeComponent implements OnInit {
   user$: Observable<ApolloQueryResult<{ getUser: User }>>
+  loggedIn$: Observable<ApolloQueryResult<{ sessionIsActive: boolean }>>;
   accountInputs = {username: '', password: ''};
 
   constructor(private service: AuthService) { }
 
   ngOnInit(): void {
+    this.loggedIn$ = this.service.userIsLoggedIn()
     this.user$ = this.service.getUser()
   }
 

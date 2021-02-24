@@ -6,6 +6,11 @@ import {join} from 'path';
 import {PrismaService} from "./db/prisma.service";
 import {UserService} from "./user/user.service";
 import {UserResolver} from "./user/user.resolver";
+import {SessionsResolver} from "./sessions/sessions.resolver";
+import {SessionsService} from "./sessions/sessions.service";
+import * as cookie from "cookie";
+
+export const COOKIE_NAME = 'gymbuds';
 
 @Module({
     imports: [
@@ -18,14 +23,23 @@ import {UserResolver} from "./user/user.resolver";
                 path: join(process.cwd(), 'src/db/graphql.ts'),
             },
             path: '/api',
-            cors: true
+            context: context => {
+                const ctx = {res: context.res, req: context.req};
+                const cookies = context.req.headers.cookie;
+                if (cookies) {
+                    return {...ctx, authToken: cookie.parse(cookies)[COOKIE_NAME]}
+                }
+                return ctx;
+            }
         })
     ],
     providers: [
         AppService,
         PrismaService,
         UserService,
-        UserResolver
+        UserResolver,
+        SessionsResolver,
+        SessionsService
     ],
 })
 export class AppModule {

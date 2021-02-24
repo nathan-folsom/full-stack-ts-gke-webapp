@@ -11,6 +11,11 @@ input CreateUserInput {
     password: String!
 }
 
+type CreateUserOutput {
+    user: User!
+    sessionIsActive: Boolean!
+}
+
 enum UserStatus {
     ACTIVE
     DELETED
@@ -23,6 +28,6 @@ type Query {
 }
 
 type Mutation {
-    createUser(user: CreateUserInput): User
+    createUser(user: CreateUserInput): CreateUserOutput
     createRandomUser: User
 }

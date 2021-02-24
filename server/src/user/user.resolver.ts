@@ -1,10 +1,14 @@
-import {Args, Mutation, Query, Resolver} from "@nestjs/graphql";
+import {Args, Context, Mutation, Query, Resolver} from "@nestjs/graphql";
 import {UserService} from "./user.service";
-import {CreateUserInput, User} from "../db/graphql";
+import {CreateUserInput, CreateUserOutput} from "../db/graphql";
+import {ServerResponse} from "http";
+import {SessionsService} from "../sessions/sessions.service";
+import {COOKIE_NAME} from "../app.module";
 
 @Resolver('User')
 export class UserResolver {
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private sessionService: SessionsService) {
     }
 
     @Query('user')
@@ -13,13 +17,25 @@ export class UserResolver {
     }
 
     @Query('login')
-    async login(@Args('username') username: string, @Args('password') password: string) {
-        return this.userService.login(username, password);
+    async login(@Args('username') username: string,
+                @Args('password') password: string,
+                @Context('authToken') token: string,
+                @Context('res') res: ServerResponse) {
+        const user = await this.userService.login(username, password);
+        if (token) {
+            this.sessionService.set(token, true);
+        } else {
+            res.setHeader('Set-Cookie', `${COOKIE_NAME}=${token}`)
+        }
+        return user;
     }
 
     @Mutation('createUser')
-    async createUser(@Args('user') input: CreateUserInput): Promise<User> {
-        return this.userService.createUser(input);
+    async createUser(@Args('user') input: CreateUserInput, @Context('res') res: ServerResponse): Promise<CreateUserOutput> {
+        const user = await this.userService.createUser(input);
+        const token = await this.sessionService.create(user.userId);
+        res.setHeader('Set-Cookie', `${COOKIE_NAME}=${token}`)
+        return {user, sessionIsActive: true};
     }
 
     @Mutation('createRandomUser')

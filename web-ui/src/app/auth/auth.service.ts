@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Apollo} from "apollo-angular";
 import {CREATE_USER} from "../home/mutations";
-import {GET_USER, LOGIN} from "../home/queries";
+import {GET_USER, LOGIN, SESSION_IS_ACTIVE} from "../home/queries";
 import {User} from "../model/user";
 
 @Injectable()
@@ -35,4 +35,8 @@ export class AuthService {
       fetchPolicy: 'network-only'
     })
   }
+
+  userIsLoggedIn = () => this.apollo.query<{sessionIsActive: boolean}>({
+    query: SESSION_IS_ACTIVE
+  })
 }

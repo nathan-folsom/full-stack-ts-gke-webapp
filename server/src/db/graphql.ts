@@ -27,8 +27,15 @@ export interface Reservation {
 export interface IQuery {
     allReservations(userId: string): Reservation[] | Promise<Reservation[]>;
     myReservations(userId: string): Reservation[] | Promise<Reservation[]>;
+    sessionIsActive(): boolean | Promise<boolean>;
     login(username: string, password: string): User | Promise<User>;
     user(id: string): User | Promise<User>;
+}
+
+export interface Session {
+    token: string;
+    userId: string;
+    active: boolean;
 }
 
 export interface User {
@@ -39,7 +46,12 @@ export interface User {
     status?: UserStatus;
 }
 
+export interface CreateUserOutput {
+    user: User;
+    sessionIsActive: boolean;
+}
+
 export interface IMutation {
-    createUser(user?: CreateUserInput): User | Promise<User>;
+    createUser(user?: CreateUserInput): CreateUserOutput | Promise<CreateUserOutput>;
     createRandomUser(): User | Promise<User>;
 }

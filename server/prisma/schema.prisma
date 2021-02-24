@@ -33,3 +33,9 @@ model ReservationEntity {
     location    String
     message     String
 }
+
+model SessionEntity {
+    token       String      @id @default(uuid())
+    userId      String
+    active      Boolean     @default(true)
+}

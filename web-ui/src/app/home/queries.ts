@@ -19,3 +19,9 @@ export const LOGIN = gql`
     }
   }
 `
+
+export const SESSION_IS_ACTIVE = gql`
+    query {
+      sessionIsActive
+    }
+`
