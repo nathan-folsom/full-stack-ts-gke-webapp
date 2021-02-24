@@ -55,3 +55,5 @@ export interface IMutation {
     createUser(user?: CreateUserInput): CreateUserOutput | Promise<CreateUserOutput>;
     createRandomUser(): User | Promise<User>;
 }
+
+export type DateTime = any;

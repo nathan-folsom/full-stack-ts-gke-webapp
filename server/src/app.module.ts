@@ -1,7 +1,7 @@
 import {Module} from '@nestjs/common';
 import {AppService} from './app.service';
 import {ServeStaticModule} from "@nestjs/serve-static";
-import {GraphQLModule} from '@nestjs/graphql';
+import {GraphQLISODateTime, GraphQLModule} from '@nestjs/graphql';
 import {join} from 'path';
 import {PrismaService} from "./db/prisma.service";
 import {UserService} from "./user/user.service";
@@ -30,7 +30,8 @@ export const COOKIE_NAME = 'gymbuds';
                     return {...ctx, authToken: cookie.parse(cookies)[COOKIE_NAME]}
                 }
                 return ctx;
-            }
+            },
+            resolvers: { Date: GraphQLISODateTime }
         })
     ],
     providers: [
