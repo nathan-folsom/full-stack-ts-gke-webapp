@@ -36,6 +36,6 @@ model ReservationEntity {
 
 model SessionEntity {
     token       String      @id @default(uuid())
-    userId      String
+    userId      String      @unique
     active      Boolean     @default(true)
 }

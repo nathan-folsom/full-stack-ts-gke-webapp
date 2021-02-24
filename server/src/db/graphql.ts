@@ -28,7 +28,6 @@ export interface IQuery {
     allReservations(userId: string): Reservation[] | Promise<Reservation[]>;
     myReservations(userId: string): Reservation[] | Promise<Reservation[]>;
     sessionIsActive(): boolean | Promise<boolean>;
-    login(username: string, password: string): User | Promise<User>;
     user(id: string): User | Promise<User>;
 }
 
@@ -41,19 +40,15 @@ export interface Session {
 export interface User {
     userId: string;
     username: string;
-    created: string;
+    created: DateTime;
     reservations?: Reservation[];
     status?: UserStatus;
 }
 
-export interface CreateUserOutput {
-    user: User;
-    sessionIsActive: boolean;
-}
-
 export interface IMutation {
-    createUser(user?: CreateUserInput): CreateUserOutput | Promise<CreateUserOutput>;
-    createRandomUser(): User | Promise<User>;
+    createUser(user?: CreateUserInput): User | Promise<User>;
+    login(username: string, password: string): User | Promise<User>;
+    logout(): boolean | Promise<boolean>;
 }
 
 export type DateTime = any;

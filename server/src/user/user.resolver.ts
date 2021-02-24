@@ -1,6 +1,6 @@
 import {Args, Context, Mutation, Query, Resolver} from "@nestjs/graphql";
 import {UserService} from "./user.service";
-import {CreateUserInput, CreateUserOutput} from "../db/graphql";
+import {CreateUserInput} from "../db/graphql";
 import {ServerResponse} from "http";
 import {SessionsService} from "../sessions/sessions.service";
 import {COOKIE_NAME} from "../app.module";
@@ -16,32 +16,30 @@ export class UserResolver {
         return this.userService.getUser(id);
     }
 
-    @Query('login')
+    @Mutation('login')
     async login(@Args('username') username: string,
                 @Args('password') password: string,
-                @Context('authToken') token: string,
                 @Context('res') res: ServerResponse) {
         const user = await this.userService.login(username, password);
-        if (token) {
-            this.sessionService.set(token, true);
-        } else {
-            res.setHeader('Set-Cookie', `${COOKIE_NAME}=${token}`)
+        if (user) {
+            const session = await this.sessionService.getForUser(user.userId);
+            this.sessionService.set(session.token, true);
+            res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`);
+            return user;
         }
-        return user;
+    }
+
+    @Mutation()
+    async logout(@Context('authToken') token: string) {
+        const logout = await this.userService.logout(token);
+        return !logout.active;
     }
 
     @Mutation('createUser')
-    async createUser(@Args('user') input: CreateUserInput, @Context('res') res: ServerResponse): Promise<CreateUserOutput> {
+    async createUser(@Args('user') input: CreateUserInput, @Context('res') res: ServerResponse) {
         const user = await this.userService.createUser(input);
-        const token = await this.sessionService.create(user.userId);
-        res.setHeader('Set-Cookie', `${COOKIE_NAME}=${token}`)
-        return {user, sessionIsActive: true};
+        const session = await this.sessionService.create(user.userId);
+        res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`)
+        return user;
     }
-
-    @Mutation('createRandomUser')
-    async createRandomUser() {
-        const input = {username: 'abc123', password: '123abc'}
-        return this.userService.createUser(input);
-    }
-
 }

@@ -35,4 +35,13 @@ export class SessionsService {
             active
         }
     })
+
+    getForUser = (userId: string) => this.db.sessionEntity.findUnique({
+        where: {
+            userId
+        },
+        select: {
+            token: true
+        }
+    })
 }

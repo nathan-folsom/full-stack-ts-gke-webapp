@@ -1,7 +1,7 @@
 type User {
     userId: String!
     username: String!
-    created: String!
+    created: Date!
     reservations: [Reservation]
     status: UserStatus
 }
@@ -11,11 +11,6 @@ input CreateUserInput {
     password: String!
 }
 
-type CreateUserOutput {
-    user: User!
-    sessionIsActive: Boolean!
-}
-
 enum UserStatus {
     ACTIVE
     DELETED
@@ -23,11 +18,11 @@ enum UserStatus {
 }
 
 type Query {
-    login(username: String!, password: String!): User
     user(id: String!): User
 }
 
 type Mutation {
-    createUser(user: CreateUserInput): CreateUserOutput
-    createRandomUser: User
+    createUser(user: CreateUserInput): User
+    login(username: String!, password: String!): User
+    logout: Boolean
 }
