@@ -23,7 +23,7 @@ const clientDefs = gql`
   }
 `
 
-const uri = 'http://localhost:4000/api'; // <-- add the URL of the GraphQL server here
+const uri = 'http://localhost:4200/api'; // <-- add the URL of the GraphQL server here
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   return {
     link: httpLink.create({uri}),
