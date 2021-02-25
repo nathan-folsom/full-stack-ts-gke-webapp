@@ -1,24 +1,70 @@
 <div class="container">
-  <div class="row justify-content-center mt-3">
-    <div class="col">
+  <ng-container *ngIf="(user$ | async)?.data.user as user; else notLoggedIn">
+  </ng-container>
+  <ng-template #notLoggedIn>
+    <div class="row justify-content-center">
+      <ng-container [ngTemplateOutlet]="createAccountForm"></ng-container>
+      <div class="flex">
+        <div class="row align-items-center h-100">
+          <h3 class="flex">or</h3>
+        </div>
+      </div>
+      <ng-container [ngTemplateOutlet]="loginForm"></ng-container>
+    </div>
+    <div class="row justify-content-center mt-5">
+      <div class="flex text-center">
+        <h3>A humble webapp with a humble goal: help bring people together</h3>
+        <p>Use Gymbuds to coordinate reservations and sessions with your fitness friends and accountabilibuddies!</p>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #createAccountForm>
+  <div class="flex">
+    <div class="col align-items-center mt-3">
       <div class="flex mt-2">
         <h3>Create an account</h3>
       </div>
       <label class="flex mt-2">
         <span>Username<br></span>
-        <input type="text" [(ngModel)]="accountInputs.username">
+        <input type="text" [(ngModel)]="createAccountInputs.username">
       </label>
       <label class="flex mt-2">
         <span>Password<br></span>
-        <input type="password" [(ngModel)]="accountInputs.password">
+        <input type="password" [(ngModel)]="createAccountInputs.password">
       </label>
       <label class="flex mt-2">
         <span>Confirm Password<br></span>
-        <input type="password" [(ngModel)]="accountInputs.password">
+        <input type="password" [(ngModel)]="createAccountInputs.confirmPassword">
       </label>
+      <div *ngIf="passwordError" class="flex mt-2">
+        <p>{{passwordError}}</p>
+      </div>
       <div class="flex mt-2">
         <button class="w-100" (click)="createAccount()">Create Account</button>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+
+<ng-template #loginForm>
+  <div class="flex">
+    <div class="col align-items-center mt-3">
+      <div class="flex mt-2">
+        <h3>Login</h3>
+      </div>
+      <label class="flex mt-2">
+        <span>Username<br></span>
+        <input type="text" [(ngModel)]="loginInputs.username">
+      </label>
+      <label class="flex mt-2">
+        <span>Password<br></span>
+        <input type="password" [(ngModel)]="loginInputs.password">
+      </label>
+      <div class="flex mt-2">
+        <button class="w-100" (click)="logIn()">Login</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
