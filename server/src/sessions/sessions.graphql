@@ -6,4 +6,5 @@ type Session {
 
 extend type Query {
     sessionIsActive: Boolean
+    getToken(userId: String!): String
 }

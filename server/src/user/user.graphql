@@ -19,6 +19,7 @@ enum UserStatus {
 
 type Query {
     user: User
+    getUserId(username: String!): String!
 }
 
 type Mutation {

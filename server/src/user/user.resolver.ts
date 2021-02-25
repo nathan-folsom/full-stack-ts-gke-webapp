@@ -53,4 +53,10 @@ export class UserResolver {
         }
 
     }
+
+    @Query('getUserId')
+    async getUserId(@Args('username') username: string) {
+        const user = await this.userService.getUserByName(username);
+        return user.userId;
+    }
 }

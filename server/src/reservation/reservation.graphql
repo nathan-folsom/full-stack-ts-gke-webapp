@@ -1,11 +1,23 @@
 type Reservation {
     id: String!
     userId: String!
-    time: String!
+    time: Date!
     location: String!
+    message: String
+}
+
+input CreateReservationInput {
+    time: Date!
+    location: String!
+    message: String
 }
 
 extend type Query {
-    allReservations(userId: String!): [Reservation]
-    myReservations(userId: String!): [Reservation]
+    allReservations: [Reservation]
+    myReservations: [Reservation]
+}
+
+extend type Mutation {
+    createReservation(reservation: CreateReservationInput!): Reservation
+    deleteReservation(reservationId: String!): Boolean
 }

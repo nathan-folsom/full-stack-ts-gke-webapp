@@ -12,6 +12,12 @@ export enum UserStatus {
     ADMIN = "ADMIN"
 }
 
+export interface CreateReservationInput {
+    time: DateTime;
+    location: string;
+    message?: string;
+}
+
 export interface CreateUserInput {
     username: string;
     password: string;
@@ -20,15 +26,26 @@ export interface CreateUserInput {
 export interface Reservation {
     id: string;
     userId: string;
-    time: string;
+    time: DateTime;
     location: string;
+    message?: string;
 }
 
 export interface IQuery {
-    allReservations(userId: string): Reservation[] | Promise<Reservation[]>;
-    myReservations(userId: string): Reservation[] | Promise<Reservation[]>;
+    allReservations(): Reservation[] | Promise<Reservation[]>;
+    myReservations(): Reservation[] | Promise<Reservation[]>;
     sessionIsActive(): boolean | Promise<boolean>;
+    getToken(userId: string): string | Promise<string>;
     user(): User | Promise<User>;
+    getUserId(username: string): string | Promise<string>;
+}
+
+export interface IMutation {
+    createReservation(reservation: CreateReservationInput): Reservation | Promise<Reservation>;
+    deleteReservation(reservationId: string): boolean | Promise<boolean>;
+    createUser(user?: CreateUserInput): boolean | Promise<boolean>;
+    login(username: string, password: string): boolean | Promise<boolean>;
+    logout(): boolean | Promise<boolean>;
 }
 
 export interface Session {
@@ -43,12 +60,6 @@ export interface User {
     created: DateTime;
     reservations?: Reservation[];
     status?: UserStatus;
-}
-
-export interface IMutation {
-    createUser(user?: CreateUserInput): boolean | Promise<boolean>;
-    login(username: string, password: string): boolean | Promise<boolean>;
-    logout(): boolean | Promise<boolean>;
 }
 
 export type DateTime = any;

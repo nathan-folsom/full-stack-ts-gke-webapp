@@ -16,6 +16,12 @@ export class UserService {
             })
     }
 
+    getUserByName = (username: string) => this.db.userEntity.findUnique({
+        where: {
+            username
+        }
+    })
+
     login = async (username: string, password: string) => {
         const user: UserEntity = await this.db.userEntity.findUnique({
             where: {
