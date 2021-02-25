@@ -18,6 +18,10 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 @each $color, $value in $colors {
   .bg-#{$color} {
     background: $value;
@@ -40,6 +44,14 @@ p, h1, h2, h3, h4, h5, h6 {
   .mb-#{$size} {
     margin-bottom: $value;
   }
+  .my-#{$size} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+  .mx-#{$size} {
+    margin-left: $value;
+    margin-right: $value;
+  }
 
   .p-#{$size} {
     padding: $value;
@@ -55,5 +67,13 @@ p, h1, h2, h3, h4, h5, h6 {
   }
   .pb-#{$size} {
     padding-bottom: $value;
+  }
+  .py-#{$size} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+  .px-#{$size} {
+    padding-left: $value;
+    padding-right: $value;
   }
 }

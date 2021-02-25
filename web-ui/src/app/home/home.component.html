@@ -17,25 +17,26 @@
       </div>
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mt-3">
     <div class="col">
-      <div class="flex">
+      <div class="flex mt-2">
         <h3>Create an account</h3>
       </div>
-      <label class="flex">
-        <p>Username</p>
+      <label class="flex mt-2">
+        <span>Username<br></span>
         <input type="text" [(ngModel)]="accountInputs.username">
       </label>
-      <label class="flex">
-        Password
+      <label class="flex mt-2">
+        <span>Password<br></span>
         <input type="password" [(ngModel)]="accountInputs.password">
       </label>
-      <label class="flex">
-        Confirm Password
+      <label class="flex mt-2">
+        <span>Confirm Password<br></span>
         <input type="password" [(ngModel)]="accountInputs.password">
       </label>
-      <button (click)="createAccount()">Create</button>
-      <button (click)="logIn()">Login</button>
+      <div class="flex mt-2">
+        <button class="w-100" (click)="createAccount()">Create Account</button>
+      </div>
     </div>
   </div>
 </div>
