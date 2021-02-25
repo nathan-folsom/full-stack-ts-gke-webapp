@@ -4,8 +4,16 @@
       <div class="row align-items-center">
         <h1 class="flex grow-1">Gymbuds</h1>
         <div class="flex">
-          <div
-            [ngStyle]="{background: (loggedIn$ | async)?.data.sessionIsActive ? '#0f0' : '#f00', width: '20px', height: '20px'}"></div>
+          <ng-container *ngIf="(user$ | async)?.data.user; else notLoggedIn">
+            <button (click)="logout()">logout</button>
+          </ng-container>
+          <ng-template #notLoggedIn>
+            <button>login</button>
+          </ng-template>
+        </div>
+        <div class="flex">
+          <div [ngStyle]="{background: (user$ | async)?.data.user ? '#0f0' : '#f00', width: '20px', height: '20px'}">
+          </div>
         </div>
       </div>
     </div>

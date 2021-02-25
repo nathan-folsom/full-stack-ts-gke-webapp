@@ -12,8 +12,12 @@ export class UserResolver {
     }
 
     @Query('user')
-    async getUser(@Args('id') id: string) {
-        return this.userService.getUser(id);
+    async getUser(@Context('authToken') token: string) {
+        if (token) {
+            const session = await this.sessionService.get(token);
+            return session.active ? this.userService.getUser(session.userId) : undefined;
+        }
+        return undefined;
     }
 
     @Mutation('login')
@@ -22,24 +26,31 @@ export class UserResolver {
                 @Context('res') res: ServerResponse) {
         const user = await this.userService.login(username, password);
         if (user) {
-            const session = await this.sessionService.getForUser(user.userId);
-            this.sessionService.set(session.token, true);
+            let session = await this.sessionService.getForUser(user.userId);
+            session = await this.sessionService.set(session.token, true);
             res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`);
-            return user;
+            return true;
         }
+        return false;
     }
 
     @Mutation()
     async logout(@Context('authToken') token: string) {
-        const logout = await this.userService.logout(token);
-        return !logout.active;
+        const session = await this.userService.logout(token);
+        return !session.active;
     }
 
     @Mutation('createUser')
     async createUser(@Args('user') input: CreateUserInput, @Context('res') res: ServerResponse) {
-        const user = await this.userService.createUser(input);
-        const session = await this.sessionService.create(user.userId);
-        res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`)
-        return user;
+        try {
+            const user = await this.userService.createUser(input);
+            const session = await this.sessionService.create(user.userId);
+            res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`)
+            return true;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+
     }
 }

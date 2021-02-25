@@ -10,15 +10,13 @@ import {Observable} from "rxjs";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  user$: Observable<ApolloQueryResult<{ getUser: User }>>
-  loggedIn$: Observable<ApolloQueryResult<{ sessionIsActive: boolean }>>;
+  user$: Observable<ApolloQueryResult<{ user: User }>>
   accountInputs = {username: '', password: ''};
 
   constructor(private service: AuthService) { }
 
   ngOnInit(): void {
-    this.loggedIn$ = this.service.userIsLoggedIn()
-    this.user$ = this.service.getUser()
+    this.user$ = this.service.getUser().valueChanges
   }
 
   createAccount = () => {
@@ -27,6 +25,11 @@ export class HomeComponent implements OnInit {
 
   logIn = () => {
     this.service.logIn(this.accountInputs.username, this.accountInputs.password);
+    this.accountInputs = {username: '', password: ''};
+  }
+
+  logout = () => {
+    this.service.logOut();
   }
 
 }

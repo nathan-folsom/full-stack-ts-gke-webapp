@@ -44,4 +44,10 @@ export class SessionsService {
             token: true
         }
     })
+
+    get = (token: string) => this.db.sessionEntity.findUnique({
+        where: {
+            token
+        }
+    })
 }

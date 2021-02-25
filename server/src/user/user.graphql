@@ -18,11 +18,11 @@ enum UserStatus {
 }
 
 type Query {
-    user(id: String!): User
+    user: User
 }
 
 type Mutation {
-    createUser(user: CreateUserInput): User
-    login(username: String!, password: String!): User
+    createUser(user: CreateUserInput): Boolean
+    login(username: String!, password: String!): Boolean
     logout: Boolean
 }
