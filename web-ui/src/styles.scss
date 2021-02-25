@@ -1,5 +1,6 @@
 @import "./styles/flex";
 @import "styles/variables";
+
 * {
   box-sizing: border-box;
 }
@@ -13,8 +14,46 @@ body {
   padding: 0 16px;
 }
 
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
 @each $color, $value in $colors {
   .bg-#{$color} {
     background: $value;
+  }
+}
+
+@each $size, $value in $spacings {
+  .m-#{$size} {
+    margin: $value;
+  }
+  .mt-#{$size} {
+    margin-top: $value;
+  }
+  .mr-#{$size} {
+    margin-right: $value;
+  }
+  .ml-#{$size} {
+    margin-left: $value;
+  }
+  .mb-#{$size} {
+    margin-bottom: $value;
+  }
+
+  .p-#{$size} {
+    padding: $value;
+  }
+  .pt-#{$size} {
+    padding-top: $value;
+  }
+  .pr-#{$size} {
+    padding-right: $value;
+  }
+  .pl-#{$size} {
+    padding-left: $value;
+  }
+  .pb-#{$size} {
+    padding-bottom: $value;
   }
 }
