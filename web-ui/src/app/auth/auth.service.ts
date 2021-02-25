@@ -3,7 +3,7 @@ import {Apollo} from "apollo-angular";
 import {CREATE_USER, LOGIN, LOGOUT} from "../home/mutations";
 import {GET_USER} from "../home/queries";
 import {User} from "../model/user";
-import {switchMap, tap} from "rxjs/operators";
+import {switchMap} from "rxjs/operators";
 
 @Injectable()
 export class AuthService {
@@ -24,10 +24,11 @@ export class AuthService {
     this.apollo.mutate({
       mutation: CREATE_USER,
       variables: {
-        username,
-        password
+        user: {username, password}
       }
-    })
+    }).pipe(
+      switchMap(() => this.fetchUser())
+    ).subscribe();
 
   logIn = (username: string, password: string) =>
     this.apollo.mutate({
@@ -38,15 +39,13 @@ export class AuthService {
       },
       fetchPolicy: 'no-cache'
     }).pipe(
-      tap(console.log),
       switchMap(() => this.fetchUser())
-    ).subscribe(console.log);
+    ).subscribe();
 
   logOut = () => this.apollo.mutate({
     mutation: LOGOUT,
     fetchPolicy: 'no-cache'
   }).pipe(
-    tap(console.log),
     switchMap(() => this.fetchUser())
-  ).subscribe(console.log);
+  ).subscribe();
 }

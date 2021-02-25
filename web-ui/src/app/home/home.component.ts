@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 
   createAccount = () => {
     this.service.createUser(this.accountInputs.username, this.accountInputs.password);
+    this.accountInputs = {username: '', password: ''};
   }
 
   logIn = () => {
