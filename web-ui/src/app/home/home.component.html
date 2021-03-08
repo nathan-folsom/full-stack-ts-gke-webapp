@@ -1,5 +1,7 @@
 <div class="container">
   <ng-container *ngIf="(user$ | async)?.data.user as user; else notLoggedIn">
+    <app-create-reservation></app-create-reservation>
+
   </ng-container>
   <ng-template #notLoggedIn>
     <div class="row justify-content-center">

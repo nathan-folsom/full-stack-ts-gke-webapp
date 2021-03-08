@@ -2,24 +2,30 @@ import {NgModule} from '@angular/core';
 import {APOLLO_OPTIONS, gql} from 'apollo-angular';
 import {ApolloClientOptions, InMemoryCache, InMemoryCacheConfig, makeVar} from '@apollo/client/core';
 import {HttpLink} from 'apollo-angular/http';
+import {Reservation} from "../../../server/src/db/graphql";
 
 const options: InMemoryCacheConfig = {
-  // typePolicies: {
-  //   Query: {
-  //     fields: {
-  //       user: {
-  //         read() {
-  //           return makeVar({})
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  typePolicies: {
+    Query: {
+      fields: {
+        reservations: {
+          read() {
+            return appState.reservations();
+          }
+        }
+      }
+    }
+  }
+}
+
+export const appState = {
+  reservations: makeVar<Reservation[]>([])
 }
 
 const clientDefs = gql`
   extend type Query {
     getUser: User!
+    reservations: [Reservation]!
   }
 `
 

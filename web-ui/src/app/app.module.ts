@@ -7,24 +7,43 @@ import { HomeComponent } from './home/home.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import {AuthService} from "./auth/auth.service";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TopNavComponent } from './top-nav/top-nav.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatInputModule} from "@angular/material/input";
+import { CreateReservationComponent } from './home/create-reservation/components/create-reservation.component';
+import {MatButtonModule} from "@angular/material/button";
+import {ReservationService} from "./home/create-reservation/service/reservation.service";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TopNavComponent
+    TopNavComponent,
+    CreateReservationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    ReservationService
   ],
   bootstrap: [AppComponent]
 })
