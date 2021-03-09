@@ -22,7 +22,7 @@ export class ReservationService {
     })
   ).subscribe();
 
-  getAllReservations = () => this.apollo.watchQuery<Reservation[]>({
+  getAllReservations = () => this.apollo.watchQuery<{ reservations: Reservation[] }>({
     query: GET_ALL_RESERVATIONS,
     fetchPolicy: "cache-only"
   }).valueChanges

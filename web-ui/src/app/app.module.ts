@@ -18,6 +18,7 @@ import { CreateReservationComponent } from './home/create-reservation/components
 import {MatButtonModule} from "@angular/material/button";
 import {ReservationService} from "./home/create-reservation/service/reservation.service";
 import {MatSelectModule} from "@angular/material/select";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {MatSelectModule} from "@angular/material/select";
   ],
   providers: [
     AuthService,
-    ReservationService
+    ReservationService,
+    MatSnackBar
   ],
   bootstrap: [AppComponent]
 })
