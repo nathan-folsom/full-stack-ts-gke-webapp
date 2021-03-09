@@ -26,6 +26,7 @@ export interface CreateUserInput {
 export interface Reservation {
     id: string;
     userId: string;
+    username: string;
     time: DateTime;
     location: string;
     message?: string;
