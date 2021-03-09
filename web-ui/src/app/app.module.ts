@@ -19,13 +19,17 @@ import {MatButtonModule} from "@angular/material/button";
 import {ReservationService} from "./data-services/reservation/reservation.service";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { ReservationsComponent } from './home/components/reservations/reservations.component';
+import { ViewReservationsComponent } from './home/components/view-reservations/view-reservations.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     TopNavComponent,
-    CreateReservationComponent
+    CreateReservationComponent,
+    ReservationsComponent,
+    ViewReservationsComponent
   ],
   imports: [
     BrowserModule,

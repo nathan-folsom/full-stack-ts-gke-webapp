@@ -1,0 +1,14 @@
+<div class="row mt-3 align-items-center">
+  <div class="flex-grow">
+    <h2 class="mb-0">Upcoming Reservations</h2>
+  </div>
+  <div class="flex">
+    <button mat-flat-button color="primary" (click)="toggleShowCreate()">Create Reservation</button>
+  </div>
+  <div *ngIf="showCreate" class="flex-full">
+    <app-create-reservation></app-create-reservation>
+  </div>
+  <div class="flex-full">
+    <app-view-reservations></app-view-reservations>
+  </div>
+</div>

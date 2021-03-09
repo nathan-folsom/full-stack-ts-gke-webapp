@@ -14,6 +14,14 @@
 
 .row .flex, .col .flex {
   padding: 0 16px;
+
+  &-grow {
+    flex-grow: 1;
+  }
+
+  &-full {
+    flex: 1 0 100%;
+  }
 }
 
 .col .flex {

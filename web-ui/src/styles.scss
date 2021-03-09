@@ -18,9 +18,14 @@ body {
   margin: 0;
 }
 
-.container {
+.container, .content-container {
   width: 100%;
   padding: 0 16px;
+}
+
+.content-container {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -59,7 +64,7 @@ p, h1, h2, h3, h4, h5, h6 {
     margin-left: $value;
   }
   .mb-#{$size} {
-    margin-bottom: $value;
+    margin-bottom: $value !important;
   }
   .my-#{$size} {
     margin-top: $value;
