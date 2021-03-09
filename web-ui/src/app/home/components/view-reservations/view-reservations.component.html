@@ -3,7 +3,7 @@
     <p>Current Reservations: {{reservations.data.reservations.length}}</p>
     <div class="col">
       <div *ngFor="let res of reservations.data.reservations" class="flex">
-        <p>Made By: {{res.userId}}</p>
+        <p>Made By: {{res.username}}</p>
         <p>Time: {{res.time | date:'MMM d, h:mm a'}}</p>
         <p>Location: {{res.location}}</p>
         <p *ngIf="res.message">Message: {{res.message}}</p>
