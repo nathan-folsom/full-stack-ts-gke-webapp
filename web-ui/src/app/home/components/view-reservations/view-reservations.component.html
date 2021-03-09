@@ -4,7 +4,7 @@
     <div class="col">
       <div *ngFor="let res of reservations.data.reservations" class="flex">
         <p>Made By: {{res.userId}}</p>
-        <p>Time: {{res.time}}</p>
+        <p>Time: {{res.time | date:'MMM d, h:mm a'}}</p>
         <p>Location: {{res.location}}</p>
         <p *ngIf="res.message">Message: {{res.message}}</p>
         <button *ngIf="res.userId === (user$ | async)?.data.user.userId" mat-button color="accent"
