@@ -1,15 +1,12 @@
 <div class="row justify-content-center mt-5">
   <div class="flex">
     <div class="col">
-      <div class="flex" *ngIf="reservations$ | async as reservations">
-        <p>Current Reservations: {{reservations.data.reservations.length}}</p>
-      </div>
       <div class="flex">
         <h3 class="text-center">New Reservation</h3>
       </div>
       <mat-form-field appearance="fill">
         <mat-label>Choose a date</mat-label>
-        <input matInput [min]="minDate" [matDatepicker]="picker" (dateChange)="dateChange($event)"
+        <input matInput [min]="minDate" [matDatepicker]="picker"
                [formControl]="createReservationInput.date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>

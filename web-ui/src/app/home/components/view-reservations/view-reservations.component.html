@@ -1,1 +1,14 @@
-<p>view-reservations works!</p>
+<div class="row">
+  <div class="flex" *ngIf="reservations$ | async as reservations">
+    <p>Current Reservations: {{reservations.data.reservations.length}}</p>
+    <div class="col">
+      <div *ngFor="let res of reservations.data.reservations" class="flex">
+        <p>Made By: {{res.userId}}</p>
+        <p>Time: {{res.time}}</p>
+        <p>Location: {{res.location}}</p>
+        <p *ngIf="res.message">Message: {{res.message}}</p>
+        <button mat-button color="accent">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

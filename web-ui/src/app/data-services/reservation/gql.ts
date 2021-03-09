@@ -23,3 +23,15 @@ export const GET_ALL_RESERVATIONS = gql`
       }
     }
 `
+
+export const FETCH_RESERVATIONS = gql`
+    query {
+      allReservations {
+        id
+        userId
+        location
+        time
+        message
+      }
+    }
+`
