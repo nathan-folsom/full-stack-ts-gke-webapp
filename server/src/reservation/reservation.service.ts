@@ -2,10 +2,12 @@ import {Injectable} from "@nestjs/common";
 import {PrismaService} from "../db/prisma.service";
 import {CreateReservationInput} from "../db/graphql";
 import { ReservationEntity } from "@prisma/client";
+import {UserService} from "../user/user.service";
 
 @Injectable()
 export class ReservationService {
-    constructor(private db: PrismaService) {
+    constructor(private db: PrismaService,
+                private userService: UserService) {
     }
 
     createReservation = (input: CreateReservationInput, userId: string) => {
@@ -34,7 +36,9 @@ export class ReservationService {
         const friendIds = friends.map(e => e.userId);
         const allIds = [ ...friendIds, userId ];
         const allReservations = await Promise.all(allIds.map(id => this.getReservationsForUserId(id)));
-        return this.flattenReservations(allReservations);
+        const flattened = this.flattenReservations(allReservations);
+        const addedUsernames = this.addUsernames(flattened)
+        return Promise.all(addedUsernames);
     }
 
     private flattenReservations = (all: ReservationEntity[][]) => {
@@ -47,6 +51,17 @@ export class ReservationService {
             }
         })
         return reservations;
+    }
+
+    private addUsernames = (reservations: ReservationEntity[]) => {
+        const userMap = new Map();
+        return reservations.map(async (r) => {
+            if (!userMap.has(r.userId)) {
+                const user = await this.userService.getUser(r.userId);
+                userMap.set(r.userId, user.username);
+            }
+            return {...r, username: userMap.get(r.userId)}
+        });
     }
 
     getById = (id: string) => this.db.reservationEntity.findUnique({

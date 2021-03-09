@@ -1,6 +1,7 @@
 type Reservation {
     id: String!
     userId: String!
+    username: String!
     time: Date!
     location: String!
     message: String

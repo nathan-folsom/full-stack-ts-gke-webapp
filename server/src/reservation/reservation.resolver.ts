@@ -11,7 +11,6 @@ export class ReservationResolver {
     @Query('myReservations')
     async reservationsCreatedByUser(@Context('authToken', GetUserPipe) userPromise: Promise<User>) {
         const user = await userPromise;
-        // console.log(user);
         if (user) {
             return this.reservationService.getReservationsForUserId(user.userId);
         }
