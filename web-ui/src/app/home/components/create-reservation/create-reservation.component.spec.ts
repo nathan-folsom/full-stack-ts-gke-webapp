@@ -18,17 +18,15 @@ describe('CreateReservationComponent', () => {
 
   it('should construct date and time', () => {
     const originalDate = new Date();
-    const hour = '1';
-    const minute = '15';
-    const period = 'am';
-    const time = {hour, minute, period};
-    const formatted = component.getDateFromInputs(new Date(originalDate), time);
+    const formatted = component.getDateFromInputs(new Date(originalDate), {hour: '1', minute: '15', period: 'am'});
     expect(originalDate.getDate()).toEqual(formatted.getDate());
-    expect(formatted.getHours()).toEqual(parseInt(hour));
-    expect(formatted.getMinutes()).toEqual(parseInt(minute));
-    time.period = 'pm';
+    expect(formatted.getHours()).toEqual(1);
+    expect(formatted.getMinutes()).toEqual(15);
 
-    const afternoon = component.getDateFromInputs(new Date(), time);
-    expect(afternoon.getHours()).toEqual(parseInt(hour) + 12);
+    const afternoon = component.getDateFromInputs(new Date(), {hour: '1', minute: '15', period: 'pm'});
+    expect(afternoon.getHours()).toEqual(13);
+
+    const noon = component.getDateFromInputs(new Date(), {hour: '12', minute: '15', period: 'pm'});
+    expect(noon.getHours()).toEqual(12);
   });
 });

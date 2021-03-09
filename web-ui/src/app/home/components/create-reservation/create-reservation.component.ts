@@ -43,7 +43,13 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
 
   getDateFromInputs = (date: Date, time) => {
     const {hour, minute, period} = time;
-    date.setHours(period === 'am' ? parseInt(hour) : parseInt(hour) + 12, parseInt(minute));
+    let hourNumber = parseInt(hour);
+    if (period == 'am') {
+      hourNumber = hourNumber === 12 ? 0 : hourNumber;
+    } else {
+      hourNumber = hourNumber === 12 ? 12 : hourNumber + 12;
+    }
+    date.setHours(hourNumber, parseInt(minute));
     return date;
   }
 
