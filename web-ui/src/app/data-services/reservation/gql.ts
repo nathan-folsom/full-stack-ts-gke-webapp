@@ -35,3 +35,9 @@ export const FETCH_RESERVATIONS = gql`
       }
     }
 `
+
+export const DELETE_RESERVATION = gql`
+    mutation ($reservationId: String!) {
+      deleteReservation(reservationId: $reservationId)
+    }
+`

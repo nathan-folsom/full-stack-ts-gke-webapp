@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Apollo} from "apollo-angular";
-import {CREATE_RESERVATION, FETCH_RESERVATIONS, GET_ALL_RESERVATIONS} from "./gql";
+import {CREATE_RESERVATION, DELETE_RESERVATION, FETCH_RESERVATIONS, GET_ALL_RESERVATIONS} from "./gql";
 import {map} from "rxjs/operators";
 import {CreateReservationInput, Reservation} from "../../../../../server/src/db/graphql";
 import {appState} from "../../graphql.module";
@@ -31,5 +31,19 @@ export class ReservationService {
     query: FETCH_RESERVATIONS
   }).pipe(
     map((r) => appState.reservations(r.data.allReservations))
+  )
+
+  deleteReservation = (reservationId: string) => this.apollo.mutate<{deleteReservation: boolean}>({
+    mutation: DELETE_RESERVATION,
+    variables: {
+      reservationId
+    }
+  }).pipe(
+    map((r) => {
+      if (r.data.deleteReservation) {
+        const previousReservations = appState.reservations();
+        appState.reservations(previousReservations.filter(res => res.id !== reservationId))
+      }
+    })
   )
 }

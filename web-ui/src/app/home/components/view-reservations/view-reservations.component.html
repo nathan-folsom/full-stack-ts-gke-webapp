@@ -7,7 +7,8 @@
         <p>Time: {{res.time}}</p>
         <p>Location: {{res.location}}</p>
         <p *ngIf="res.message">Message: {{res.message}}</p>
-        <button mat-button color="accent">Delete</button>
+        <button *ngIf="res.userId === (user$ | async)?.data.user.userId" mat-button color="accent"
+                (click)="deleteReservation(res.id)">Delete</button>
       </div>
     </div>
   </div>

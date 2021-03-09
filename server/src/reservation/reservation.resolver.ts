@@ -40,7 +40,7 @@ export class ReservationResolver {
         const user = await userPromise;
         const toDelete = await this.reservationService.getById(reservationId);
         if (user.userId === toDelete.userId) {
-            this.reservationService.deleteReservation(reservationId);
+            await this.reservationService.deleteReservation(reservationId);
             return true;
         }
         return false;
