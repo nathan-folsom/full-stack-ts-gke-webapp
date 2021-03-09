@@ -3,8 +3,7 @@ import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
 import {ApolloQueryResult} from "@apollo/client/core";
 import {Reservation} from "../../../../../../server/src/db/graphql";
-import {ReservationService} from "../service/reservation.service";
-import {tap} from "rxjs/operators";
+import {ReservationService} from "../../../data-services/reservation/reservation.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({

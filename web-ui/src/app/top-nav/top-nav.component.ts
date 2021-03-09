@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
 import {ApolloQueryResult} from "@apollo/client/core";
 import {User} from "../model/user";
-import {AuthService} from "../auth/auth.service";
+import {AuthService} from "../data-services/auth/auth.service";
 
 @Component({
   selector: 'app-top-nav',

@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Apollo} from "apollo-angular";
-import {CREATE_USER, LOGIN, LOGOUT} from "../home/mutations";
-import {GET_USER} from "../home/queries";
-import {User} from "../model/user";
+import {CREATE_USER, LOGIN, LOGOUT} from "./mutations";
+import {GET_USER} from "./queries";
+import {User} from "../../model/user";
 import {switchMap} from "rxjs/operators";
 
 @Injectable()

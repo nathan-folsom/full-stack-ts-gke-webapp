@@ -3,11 +3,13 @@ import createSpyObj = jasmine.createSpyObj;
 
 describe('CreateReservationComponent', () => {
   let component: CreateReservationComponent;
+  let snackBar;
   let reservationService;
 
   beforeEach(() => {
     reservationService = createSpyObj('reservationService', ['']);
-    component = new CreateReservationComponent(reservationService);
+    snackBar = createSpyObj('snackBar', ['open']);
+    component = new CreateReservationComponent(reservationService, snackBar);
   });
 
   it('should create', () => {

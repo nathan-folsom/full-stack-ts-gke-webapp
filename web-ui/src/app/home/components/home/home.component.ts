@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../auth/auth.service";
+import {AuthService} from "../../../data-services/auth/auth.service";
 import {ApolloQueryResult} from "@apollo/client/core";
-import {User} from "../model/user";
+import {User} from "../../../model/user";
 import {Observable} from "rxjs";
 
 const defaultAccountInputs = {username: '', password: '', confirmPassword: ''};
