@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import {ApolloQueryResult} from "@apollo/client/core";
 import {Reservation} from "../../../../../../server/src/db/graphql";
 import {ReservationService} from "../../../data-services/reservation/reservation.service";
@@ -14,23 +14,21 @@ import {User} from "../../../model/user";
 export class ViewReservationsComponent implements OnInit, OnDestroy {
   reservations$: Observable<ApolloQueryResult<{ reservations: Reservation[] }>>;
   user$: Observable<ApolloQueryResult<{ user: User }>>;
-  subscription = new Subscription();
 
   constructor(private reservationService: ReservationService,
               private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.subscription.add(this.reservationService.fetchReservations().subscribe());
+    this.reservationService.fetchReservations();
     this.reservations$ = this.reservationService.getAllReservations();
     this.user$ = this.authService.getUser().valueChanges;
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   deleteReservation = (reservationId: string) => {
-    this.subscription.add(this.reservationService.deleteReservation(reservationId).subscribe());
+    this.reservationService.deleteReservation(reservationId);
   }
 
 }

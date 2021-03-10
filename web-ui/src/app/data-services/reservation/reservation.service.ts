@@ -20,7 +20,7 @@ export class ReservationService {
       const previousReservations = appState.reservations();
       appState.reservations([...previousReservations, r.data.createReservation]);
     })
-  );
+  ).subscribe();
 
   getAllReservations = () => this.apollo.watchQuery<{ reservations: Reservation[] }>({
     query: GET_ALL_RESERVATIONS,
@@ -31,7 +31,7 @@ export class ReservationService {
     query: FETCH_RESERVATIONS
   }).pipe(
     map((r) => appState.reservations(r.data.allReservations))
-  )
+  ).subscribe()
 
   deleteReservation = (reservationId: string) => this.apollo.mutate<{deleteReservation: boolean}>({
     mutation: DELETE_RESERVATION,
@@ -45,5 +45,5 @@ export class ReservationService {
         appState.reservations(previousReservations.filter(res => res.id !== reservationId))
       }
     })
-  )
+  ).subscribe()
 }
