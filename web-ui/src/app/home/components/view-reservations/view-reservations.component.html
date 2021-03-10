@@ -1,17 +1,16 @@
 <div class="row">
   <div class="flex" *ngIf="reservations$ | async as reservations">
     <p>Current Reservations: {{reservations.data.reservations.length}}</p>
-    <div class="col">
-      <div *ngFor="let day of reservations.data.reservations | groupReservations" class="flex">
-        <h4>{{day[0].time | date:'MMM d'}}</h4>
-        <div *ngFor="let res of day | sortReservations" class="flex">
-          <p>Made By: {{res.username}}</p>
-          <p>Time: {{res.time | date:'h:mm a'}}</p>
-          <p>Location: {{res.location}}</p>
-          <p *ngIf="res.message">Message: {{res.message}}</p>
-          <button *ngIf="res.userId === (user$ | async)?.data.user.userId" mat-button color="accent"
-                  (click)="deleteReservation(res.id)">Delete</button>
-        </div>
+    <div *ngFor="let day of reservations.data.reservations | groupReservations">
+      <div *ngFor="let res of day | sortReservations; first as f">
+        <h4 *ngIf="f">{{res.time | date:'EEE, MMM d'}}</h4>
+        <p>Made By: {{res.username}}</p>
+        <p>Time: {{res.time | date:'h:mm a'}}</p>
+        <p>Location: {{res.location}}</p>
+        <p *ngIf="res.message">Message: {{res.message}}</p>
+        <button *ngIf="res.userId === (user$ | async)?.data.user.userId" mat-button color="accent"
+                (click)="deleteReservation(res.id)">Delete
+        </button>
       </div>
     </div>
   </div>
