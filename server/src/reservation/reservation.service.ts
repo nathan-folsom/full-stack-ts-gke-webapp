@@ -1,6 +1,6 @@
 import {Injectable} from "@nestjs/common";
 import {PrismaService} from "../db/prisma.service";
-import {CreateReservationInput} from "../db/graphql";
+import {CreateReservationInput, Reservation} from "../db/graphql";
 import { ReservationEntity } from "@prisma/client";
 import {UserService} from "../user/user.service";
 
@@ -31,7 +31,7 @@ export class ReservationService {
         }
     })
 
-    getAllReservationsForUserId = async (userId: string) => {
+    getAllReservationsForUserId = async (userId: string): Promise<Reservation[]> => {
         const friends = await this.db.friendEntity.findMany({where: {userId}});
         const friendIds = friends.map(e => e.userId);
         const allIds = [ ...friendIds, userId ];

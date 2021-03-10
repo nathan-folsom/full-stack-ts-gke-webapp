@@ -1,7 +1,8 @@
 import {Args, Context, Mutation, Query, Resolver} from "@nestjs/graphql";
 import {ReservationService} from "./reservation.service";
 import {GetUserPipe} from "../get-user.pipe";
-import {CreateReservationInput, User} from "../db/graphql";
+import {CreateReservationInput, Reservation, User} from "../db/graphql";
+import {ReservationAdaptor} from "./reservation.adaptor";
 
 @Resolver('Reservation')
 export class ReservationResolver {
@@ -18,7 +19,7 @@ export class ReservationResolver {
     }
 
     @Query('allReservations')
-    async allReservationsForUser(@Context('authToken', GetUserPipe) userPromise: Promise<User>) {
+    async allReservationsForUser(@Context('authToken', GetUserPipe) userPromise: Promise<User>): Promise<Reservation[]> {
         const user = await userPromise;
         if (user) {
             return this.reservationService.getAllReservationsForUserId(user.userId);
@@ -27,10 +28,14 @@ export class ReservationResolver {
     }
 
     @Mutation()
-    async createReservation(@Args('reservation') reservation: CreateReservationInput,
-                            @Context('authToken', GetUserPipe) userPromise: Promise<User>) {
+    async createReservation(@Args('reservation') reservationInput: CreateReservationInput,
+                            @Context('authToken', GetUserPipe) userPromise: Promise<User>): Promise<Reservation> {
         const user = await userPromise;
-        return user ? this.reservationService.createReservation(reservation, user.userId) : undefined;
+        if (user) {
+            const reservation = await this.reservationService.createReservation(reservationInput, user.userId);
+            return ReservationAdaptor.toGql(reservation, user.username);
+        }
+        return undefined;
     }
 
     @Mutation()
