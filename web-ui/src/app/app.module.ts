@@ -20,7 +20,10 @@ import {ReservationService} from "./data-services/reservation/reservation.servic
 import {MatSelectModule} from "@angular/material/select";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import { ReservationsComponent } from './home/components/reservations/reservations.component';
-import { ViewReservationsComponent } from './home/components/view-reservations/view-reservations.component';
+import {
+  GroupReservationsPipe, SortReservationsPipe,
+  ViewReservationsComponent
+} from './home/components/view-reservations/view-reservations.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { ViewReservationsComponent } from './home/components/view-reservations/v
     TopNavComponent,
     CreateReservationComponent,
     ReservationsComponent,
-    ViewReservationsComponent
+    ViewReservationsComponent,
+    GroupReservationsPipe,
+    SortReservationsPipe
   ],
   imports: [
     BrowserModule,
