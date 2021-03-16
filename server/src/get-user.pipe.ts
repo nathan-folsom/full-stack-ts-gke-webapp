@@ -8,14 +8,12 @@ export class GetUserPipe implements PipeTransform {
                 private sessionsService: SessionsService) {
     }
 
-    async transform(value: string) {
-        // console.log(value);
-        if (value) {
-            const session = await this.sessionsService.get(value);
-            return this.userService.getUser(session.userId);
+    async transform(authToken: string) {
+        if (authToken) {
+            const session = await this.sessionsService.get(authToken);
+            return session ? this.userService.getUser(session.userId) : authToken;
         }
-        return value;
-        // return value;
+        return authToken;
     }
 
 }

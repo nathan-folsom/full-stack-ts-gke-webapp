@@ -15,7 +15,7 @@ export class UserResolver {
     async getUser(@Context('authToken') token: string) {
         if (token) {
             const session = await this.sessionService.get(token);
-            return session.active ? this.userService.getUser(session.userId) : undefined;
+            return session ? this.userService.getUser(session.userId) : undefined;
         }
         return undefined;
     }
@@ -26,8 +26,7 @@ export class UserResolver {
                 @Context('res') res: ServerResponse) {
         const user = await this.userService.login(username, password);
         if (user) {
-            let session = await this.sessionService.getForUser(user.userId);
-            session = await this.sessionService.set(session.token, true);
+            const session = await this.sessionService.create(user.userId);
             res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`);
             return true;
         }
@@ -36,22 +35,22 @@ export class UserResolver {
 
     @Mutation()
     async logout(@Context('authToken') token: string) {
-        const session = await this.userService.logout(token);
-        return !session.active;
+        await this.sessionService.delete(token);
+        return true;
     }
 
     @Mutation('createUser')
-    async createUser(@Args('user') input: CreateUserInput, @Context('res') res: ServerResponse) {
+    async createUser(@Args('user') input: CreateUserInput,
+                     @Context('res') res: ServerResponse) {
         try {
             const user = await this.userService.createUser(input);
             const session = await this.sessionService.create(user.userId);
-            res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`)
+            res.setHeader('Set-Cookie', `${COOKIE_NAME}=${session.token}`);
             return true;
         } catch (e) {
             console.log(e);
             return false;
         }
-
     }
 
     @Query('getUserId')

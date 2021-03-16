@@ -35,8 +35,6 @@ export interface Reservation {
 export interface IQuery {
     allReservations(): Reservation[] | Promise<Reservation[]>;
     myReservations(): Reservation[] | Promise<Reservation[]>;
-    sessionIsActive(): boolean | Promise<boolean>;
-    getToken(userId: string): string | Promise<string>;
     user(): User | Promise<User>;
     getUserId(username: string): string | Promise<string>;
 }

@@ -15,39 +15,13 @@ export class SessionsService {
         }
     })
 
-    isActive = (token: string) => {
-        console.log('finding session for token: ' + token)
-        return this.db.sessionEntity.findUnique({
-            where: {
-                token
-            },
-            select: {
-                active: true
-            }
-        });
-    }
-
-    set = (token: string, active: boolean) => this.db.sessionEntity.update({
-        where: {
-            token
-        },
-        data: {
-            active
-        }
-    })
-
-    getForUser = (userId: string) => this.db.sessionEntity.findUnique({
-        where: {
-            userId
-        },
-        select: {
-            token: true
-        }
-    })
-
     get = (token: string) => this.db.sessionEntity.findUnique({
         where: {
             token
         }
+    })
+
+    delete = (token: string) => this.db.sessionEntity.delete({
+        where: {token}
     })
 }

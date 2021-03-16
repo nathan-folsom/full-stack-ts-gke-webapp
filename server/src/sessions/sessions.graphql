@@ -3,8 +3,3 @@ type Session {
     userId: String!
     active: Boolean!
 }
-
-extend type Query {
-    sessionIsActive: Boolean
-    getToken(userId: String!): String
-}

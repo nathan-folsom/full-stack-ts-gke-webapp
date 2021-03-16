@@ -51,4 +51,10 @@ export class UserService {
             select: {username: true, userId: true, status: true, created: true}
         });
     }
+
+    deleteUser = async (userId: string) => this.db.userEntity.delete({
+        where: {
+            userId
+        }
+    })
 }

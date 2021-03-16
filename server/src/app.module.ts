@@ -6,7 +6,6 @@ import {join} from 'path';
 import {PrismaService} from "./db/prisma.service";
 import {UserService} from "./user/user.service";
 import {UserResolver} from "./user/user.resolver";
-import {SessionsResolver} from "./sessions/sessions.resolver";
 import {SessionsService} from "./sessions/sessions.service";
 import * as cookie from "cookie";
 import {ReservationResolver} from "./reservation/reservation.resolver";
@@ -42,7 +41,6 @@ export const COOKIE_NAME = 'gymbuds';
         PrismaService,
         UserService,
         UserResolver,
-        SessionsResolver,
         SessionsService,
         ReservationResolver,
         ReservationService,
