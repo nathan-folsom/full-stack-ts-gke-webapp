@@ -25,6 +25,7 @@ import {
   ViewReservationsComponent
 } from './home/components/view-reservations/view-reservations.component';
 import {MatCardModule} from "@angular/material/card";
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -37,22 +38,23 @@ import {MatCardModule} from "@angular/material/card";
     GroupReservationsPipe,
     SortReservationsPipe
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        GraphQLModule,
-        HttpClientModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatCardModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    GraphQLModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatCardModule,
+    MatDividerModule
+  ],
   providers: [
     AuthService,
     ReservationService,

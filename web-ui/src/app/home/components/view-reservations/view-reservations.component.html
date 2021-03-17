@@ -5,7 +5,8 @@
         <mat-card-header>
           <mat-card-title *ngIf="f">{{res.time | date:'EEE, MMM d'}}</mat-card-title>
         </mat-card-header>
-        <div class="row align-items-center">
+        <mat-divider *ngIf="!f"></mat-divider>
+        <div class="row align-items-center mt-2">
           <div class="flex-grow">
             <p>{{res.time | date:'h:mm a'}}</p>
           </div>
@@ -19,9 +20,6 @@
           <p><strong>{{res.username}}</strong> at <strong>{{res.location}}</strong></p>
           <p *ngIf="res.message">{{res.message}}</p>
         </mat-card-content>
-        <mat-card-actions>
-
-        </mat-card-actions>
       </ng-container>
     </mat-card>
   </div>
