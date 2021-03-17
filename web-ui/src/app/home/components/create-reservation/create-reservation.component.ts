@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ReservationService} from "../../../data-services/reservation/reservation.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -10,11 +10,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class CreateReservationComponent implements OnInit, OnDestroy {
   defaultReservationTime = {hour: '6', minute: '00', period: 'am'};
-  createReservationInput = {
-    date: new FormControl(new Date()),
-    time: {...this.defaultReservationTime},
-    location: new FormControl(''),
-    message: new FormControl('')};
+  reservationInput = new FormGroup({
+    date: new FormControl(new Date(), [Validators.required]),
+    location: new FormControl('', [Validators.required]),
+    message: new FormControl('')
+  })
+  createReservationTime = {...this.defaultReservationTime};
   minDate = new Date();
   hoursOfTheDay = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11' , '12'];
   minuteIncrements = ['15', '30', '45', '00'];
@@ -35,23 +36,25 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
 
   createFromInputs = () => {
     this.reservationService.create({
-      location: this.createReservationInput.location.value,
+      location: this.reservationInput.get('location').value,
       time: this.getDateFromInputs(),
-      message: this.createReservationInput.message.value
+      message: this.reservationInput.get('message').value,
     });
     this.resetForm();
   };
 
   resetForm = () => {
-    this.createReservationInput.location.reset();
-    this.createReservationInput.date.reset(new Date());
-    this.createReservationInput.message.reset();
-    this.createReservationInput.time = {...this.defaultReservationTime};
+    this.reservationInput.reset({
+      date: new Date(),
+      location: '',
+      message: ''
+    })
+    this.createReservationTime = {...this.defaultReservationTime};
   }
 
   getDateFromInputs = () => {
-    const date = new Date(this.createReservationInput.date.value);
-    const {hour, minute, period} = this.createReservationInput.time;
+    const date = new Date(this.reservationInput.get('date').value);
+    const {hour, minute, period} = this.createReservationTime;
     let hourNumber = parseInt(hour);
     if (period == 'am') {
       hourNumber = hourNumber === 12 ? 0 : hourNumber;
@@ -65,5 +68,4 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
   openSnackBar = () => {
     this.snackBar.open('Reservation created', 'close', {duration: 3000})
   }
-
 }

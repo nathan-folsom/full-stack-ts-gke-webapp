@@ -1,43 +1,46 @@
-<div class="row justify-content-center">
-  <div class="flex-full">
-    <mat-form-field appearance="fill" class="w-100">
-      <mat-label>Choose a date</mat-label>
-      <input matInput [min]="minDate" [matDatepicker]="picker"
-             [formControl]="createReservationInput.date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+<ng-form [formGroup]="reservationInput">
+  <div class="row justify-content-center">
+    <div class="flex-full">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Choose a date</mat-label>
+        <input matInput required [min]="minDate" [matDatepicker]="picker"
+               [formControlName]="'date'">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-full d-flex">
+      <mat-form-field appearance="fill" class="mr-1" style="flex: 1 1 0; min-width: 1px">
+        <mat-label>Hour</mat-label>
+        <mat-select [(value)]="createReservationTime.hour">
+          <mat-option *ngFor="let hour of hoursOfTheDay" value="{{hour}}">{{hour}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mr-1" style="flex: 1 1 0; min-width: 1px">
+        <mat-label>Minute</mat-label>
+        <mat-select [(value)]="createReservationTime.minute">
+          <mat-option *ngFor="let minutes of minuteIncrements" value="{{minutes}}">{{minutes}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="flex: 1 1 0; min-width: 1px">
+        <mat-select [(value)]="createReservationTime.period">
+          <mat-option value="am">am</mat-option>
+          <mat-option value="pm">pm</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill" class="flex-full">
+      <mat-label>Location</mat-label>
+      <input matInput required [formControlName]="'location'">
+      <mat-error *ngIf="reservationInput.get('location').invalid">Location is required</mat-error>
     </mat-form-field>
+    <mat-form-field appearance="fill" class="flex-full">
+      <mat-label>Message (optional)</mat-label>
+      <textarea matInput [formControlName]="'message'"></textarea>
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit" (click)="create()" [disabled]="reservationInput.invalid">Create</button>
   </div>
-
-  <div class="flex-full d-flex">
-    <mat-form-field appearance="fill" class="mr-1" style="flex: 1 1 0; min-width: 1px">
-      <mat-label>Hour</mat-label>
-      <mat-select [(value)]="createReservationInput.time.hour">
-        <mat-option *ngFor="let hour of hoursOfTheDay" value="{{hour}}">{{hour}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="mr-1" style="flex: 1 1 0; min-width: 1px">
-      <mat-label>Minute</mat-label>
-      <mat-select [(value)]="createReservationInput.time.minute">
-        <mat-option *ngFor="let minutes of minuteIncrements" value="{{minutes}}">{{minutes}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill" style="flex: 1 1 0; min-width: 1px">
-      <mat-select [(value)]="createReservationInput.time.period">
-        <mat-option value="am">am</mat-option>
-        <mat-option value="pm">pm</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <mat-form-field appearance="fill" class="flex-full">
-    <mat-label>Location</mat-label>
-    <input matInput [formControl]="createReservationInput.location">
-  </mat-form-field>
-  <mat-form-field appearance="fill" class="flex-full">
-    <mat-label>Message (optional)</mat-label>
-    <textarea matInput [formControl]="createReservationInput.message"></textarea>
-  </mat-form-field>
-  <button mat-flat-button color="primary" (click)="create()">Create</button>
-</div>
+</ng-form>
