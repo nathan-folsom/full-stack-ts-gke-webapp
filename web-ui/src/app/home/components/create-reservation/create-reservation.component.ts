@@ -9,9 +9,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./create-reservation.component.scss']
 })
 export class CreateReservationComponent implements OnInit, OnDestroy {
+  defaultReservationTime = {hour: '6', minute: '00', period: 'am'};
   createReservationInput = {
     date: new FormControl(new Date()),
-    time: {hour: '6', minute: '00', period: 'am'},
+    time: {...this.defaultReservationTime},
     location: new FormControl(''),
     message: new FormControl('')};
   minDate = new Date();
@@ -32,14 +33,25 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
     this.openSnackBar();
   }
 
-  createFromInputs = () => this.reservationService.create({
-    location: this.createReservationInput.location.value,
-    time: this.getDateFromInputs(this.createReservationInput.date.value, this.createReservationInput.time),
-    message: this.createReservationInput.message.value
-  });
+  createFromInputs = () => {
+    this.reservationService.create({
+      location: this.createReservationInput.location.value,
+      time: this.getDateFromInputs(),
+      message: this.createReservationInput.message.value
+    });
+    this.resetForm();
+  };
 
-  getDateFromInputs = (date: Date, time) => {
-    const {hour, minute, period} = time;
+  resetForm = () => {
+    this.createReservationInput.location.reset();
+    this.createReservationInput.date.reset(new Date());
+    this.createReservationInput.message.reset();
+    this.createReservationInput.time = {...this.defaultReservationTime};
+  }
+
+  getDateFromInputs = () => {
+    const date = new Date(this.createReservationInput.date.value);
+    const {hour, minute, period} = this.createReservationInput.time;
     let hourNumber = parseInt(hour);
     if (period == 'am') {
       hourNumber = hourNumber === 12 ? 0 : hourNumber;
