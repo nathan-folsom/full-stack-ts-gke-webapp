@@ -27,7 +27,8 @@ export class ReservationService {
 
     getReservationsForUserId = (userId: string) => this.db.reservationEntity.findMany({
         where: {
-            userId
+            userId,
+            time: {gte: new Date()}
         }
     })
 
