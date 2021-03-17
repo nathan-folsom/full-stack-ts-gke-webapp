@@ -1,3 +1,9 @@
+@mixin small-screen-style() {
+  @media screen and (max-width: 768px) {
+    @content();
+  }
+}
+
 .row {
   flex-direction: row;
   flex-wrap: wrap;
@@ -9,18 +15,32 @@
 
 .row, .col {
   display: flex;
-  margin: 0 -16px;
+  margin: 0 -12px;
 }
 
-.row .flex, .col .flex {
-  padding: 0 16px;
+%flex {
+  padding: 0 12px;
+}
 
-  &-grow {
-    flex-grow: 1;
+.flex {
+  @extend %flex;
+
+  &-grow, &-grow-r {
+    @extend %flex;
+    flex: 1 1 0;
+    min-width: 1px;
   }
 
   &-full {
+    @extend %flex;
     flex: 1 0 100%;
+    max-width: 100%;
+  }
+
+  &-third, &-third-r {
+    @extend %flex;
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
   }
 }
 
@@ -46,4 +66,29 @@
 
 .d-flex {
   display: flex;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+@include small-screen-style {
+  %flex {
+    padding: 0 12px;
+  }
+
+  .flex {
+    @extend %flex;
+
+    &-grow-r {
+      @extend %flex;
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+    &-third-r {
+      @extend %flex;
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
 }

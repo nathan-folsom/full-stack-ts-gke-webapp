@@ -1,17 +1,28 @@
 <div class="row">
-  <div class="flex" *ngIf="reservations$ | async as reservations">
-    <p>Current Reservations: {{reservations.data.reservations.length}}</p>
-    <div *ngFor="let day of reservations.data.reservations | groupReservations">
-      <div *ngFor="let res of day | sortReservations; first as f">
-        <h4 *ngIf="f">{{res.time | date:'EEE, MMM d'}}</h4>
-        <p>Made By: {{res.username}}</p>
-        <p>Time: {{res.time | date:'h:mm a'}}</p>
-        <p>Location: {{res.location}}</p>
-        <p *ngIf="res.message">Message: {{res.message}}</p>
-        <button *ngIf="res.userId === (user$ | async)?.data.user.userId" mat-button color="accent"
-                (click)="deleteReservation(res.id)">Delete
-        </button>
-      </div>
-    </div>
+  <div class="flex-full" *ngIf="reservations$ | async as reservations">
+    <mat-card *ngFor="let day of reservations.data.reservations | groupReservations" class="mt-3">
+      <ng-container *ngFor="let res of day | sortReservations; first as f">
+        <mat-card-header>
+          <mat-card-title *ngIf="f">{{res.time | date:'EEE, MMM d'}}</mat-card-title>
+        </mat-card-header>
+        <div class="row align-items-center">
+          <div class="flex-grow">
+            <p>{{res.time | date:'h:mm a'}}</p>
+          </div>
+          <div class="flex">
+            <button *ngIf="res.userId === (user$ | async)?.data.user.userId" mat-button color="accent"
+                    (click)="deleteReservation(res.id)">Delete
+            </button>
+          </div>
+        </div>
+        <mat-card-content>
+          <p><strong>{{res.username}}</strong> at <strong>{{res.location}}</strong></p>
+          <p *ngIf="res.message">{{res.message}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+
+        </mat-card-actions>
+      </ng-container>
+    </mat-card>
   </div>
 </div>

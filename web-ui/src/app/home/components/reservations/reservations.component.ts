@@ -6,13 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservations.component.scss']
 })
 export class ReservationsComponent implements OnInit {
-  showCreate = false;
-
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  toggleShowCreate = () => this.showCreate = !this.showCreate;
 
 }
