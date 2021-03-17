@@ -1,11 +1,11 @@
-<div class="container bg-light">
+<mat-toolbar [color]="'primary'">
   <div class="row align-items-center">
-    <h1 class="flex grow-1">Gymbuds</h1>
+    <span class="flex-grow">Gymbuds</span>
     <ng-container *ngIf="(user$ | async)?.data.user as user">
-      <div class="flex">Hello, {{user.username}}</div>
-      <div class="flex">
-        <button (click)="logout()">logout</button>
+      <span class="flex"><small>Hello, {{user.username}}</small></span>
+      <div class="flex p-0">
+        <button mat-stroked-button (click)="logout()">logout</button>
       </div>
     </ng-container>
   </div>
-</div>
+</mat-toolbar>

@@ -5,6 +5,7 @@
 }
 
 .row {
+  width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -24,6 +25,7 @@
 
 .flex {
   @extend %flex;
+  flex: 0 0 auto;
 
   &-grow, &-grow-r {
     @extend %flex;
@@ -42,6 +44,8 @@
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
+
+
 }
 
 .col .flex {

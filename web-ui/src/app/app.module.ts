@@ -26,6 +26,7 @@ import {
 } from './home/components/view-reservations/view-reservations.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {MatDividerModule} from "@angular/material/divider";
     MatButtonModule,
     MatSelectModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatToolbarModule
   ],
   providers: [
     AuthService,
