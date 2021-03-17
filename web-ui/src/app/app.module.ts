@@ -27,6 +27,8 @@ import {
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {FriendsModule} from "./friends/friends.module";
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     ReservationsComponent,
     ViewReservationsComponent,
     GroupReservationsPipe,
-    SortReservationsPipe
+    SortReservationsPipe,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatSelectModule,
     MatCardModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    FriendsModule
   ],
   providers: [
     AuthService,
