@@ -1,6 +1,5 @@
-import {Test, TestingModule} from '@nestjs/testing';
 import {INestApplication} from '@nestjs/common';
-import {AppModule, COOKIE_NAME} from "../src/app.module";
+import {COOKIE_NAME} from "../src/app.module";
 import supertest from "supertest";
 import {TestUtil} from "./test-util";
 import * as cookie from 'cookie';
@@ -10,13 +9,8 @@ import {API_URL} from "./test-env";
 describe('Auth integrations tests', () => {
     let app: INestApplication;
 
-    beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [AppModule],
-        }).compile();
-
-        app = moduleFixture.createNestApplication();
-        await app.init();
+    beforeAll(async () => {
+        app = await TestUtil.createE2eTestApp();
     });
 
     afterAll(async () => {

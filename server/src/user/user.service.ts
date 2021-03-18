@@ -1,6 +1,6 @@
 import {Injectable} from "@nestjs/common";
 import {PrismaService} from "../db/prisma.service";
-import {UserStatus} from "../db/graphql";
+import {User, UserStatus} from "../db/graphql";
 import {UserEntity} from "@prisma/client";
 
 @Injectable()
@@ -43,18 +43,23 @@ export class UserService {
         }
     })
 
-    createUser = async (input) => {
+    createUser = async (input: {username: string, password: string}): Promise<User> => {
         const {username, password} = input;
-        console.log(`creating user with username '${username}'`);
-        return this.db.userEntity.create({
+        const entity = await this.db.userEntity.create({
             data: {username, password, status: UserStatus.ACTIVE},
             select: {username: true, userId: true, status: true, created: true}
         });
+        console.log(`created user with username '${username}'`);
+        return entity as User;
     }
 
-    deleteUser = async (userId: string) => this.db.userEntity.delete({
-        where: {
-            userId
-        }
-    })
+    deleteUser = async (userId: string) => {
+        const user = await this.db.userEntity.delete({
+            where: {
+                userId
+            }
+        });
+        console.log(`deleted user with username '${user.username}'`);
+        return user;
+    }
 }

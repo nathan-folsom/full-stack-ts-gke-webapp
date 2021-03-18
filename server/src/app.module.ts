@@ -11,6 +11,7 @@ import * as cookie from "cookie";
 import {ReservationResolver} from "./reservation/reservation.resolver";
 import {ReservationService} from "./reservation/reservation.service";
 import {GetUserPipe} from "./get-user.pipe";
+import {ReservationAdaptor} from "./reservation/reservation.adaptor";
 
 export const COOKIE_NAME = 'gymbuds';
 
@@ -44,7 +45,8 @@ export const COOKIE_NAME = 'gymbuds';
         SessionsService,
         ReservationResolver,
         ReservationService,
-        GetUserPipe
+        GetUserPipe,
+        ReservationAdaptor
     ],
 })
 export class AppModule {
