@@ -11,9 +11,9 @@
   <div class="row" style="box-shadow: 0 2px 6px rgba(0,0,0,.3)">
     <div class="flex-grow"></div>
     <div class="flex">
-      <button mat-button routerLink="">reservations</button>
-      <button mat-button routerLink="friends">friends</button>
-      <button mat-button routerLink="settings">settings</button>
+      <button mat-button routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">reservations</button>
+      <button mat-button routerLink="friends" [routerLinkActive]="'active'">friends</button>
+      <button mat-button routerLink="settings" [routerLinkActive]="'active'">settings</button>
     </div>
   </div>
 </div>

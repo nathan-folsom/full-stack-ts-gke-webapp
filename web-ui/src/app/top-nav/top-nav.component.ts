@@ -3,6 +3,8 @@ import {Observable} from "rxjs";
 import {ApolloQueryResult} from "@apollo/client/core";
 import {User} from "../model/user";
 import {AuthService} from "../data-services/auth/auth.service";
+import {ActivatedRoute, NavigationEnd, Router, UrlSegment} from "@angular/router";
+import {map, startWith, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-top-nav',
@@ -21,5 +23,4 @@ export class TopNavComponent implements OnInit {
   logout = () => {
     this.service.logOut();
   }
-
 }
