@@ -9,24 +9,21 @@ describe('reservations integration testing', () => {
     let reservationId;
 
     beforeAll(async () => {
-        const setup = await TestUtil.setupIntegrationTest();
-        app = setup.app;
-        user = setup.user;
-        token = setup.token;
-    })
+        ({app, user, token} = await TestUtil.setupIntegrationTest());
+    });
 
     afterAll( async () => {
         await TestUtil.teardownIntegrationTest(app, user.userId, token);
-    })
+    });
 
     it('should create reservation', (done) => {
-        const date = new Date()
-        date.setFullYear(new Date().getFullYear() + 1)
+        const date = new Date();
+        date.setFullYear(new Date().getFullYear() + 1);
         const reservationInput: CreateReservationInput = {
             location: TestUtil.randomString(),
             message: TestUtil.randomString(),
             time: date
-        }
+        };
         TestUtil.requestWithToken(app, token)
             .send({
                 query: `mutation ($input: CreateReservationInput!) {
@@ -54,8 +51,8 @@ describe('reservations integration testing', () => {
                 expect(reservation.message).toEqual(reservationInput.message);
                 expect(reservation.location).toEqual(reservationInput.location);
                 expect(reservation.time).toEqual(reservationInput.time.toISOString());
-                done()
-            }))
+                done();
+            }));
     });
 
     it('should get reservations', (done) => {
@@ -71,7 +68,7 @@ describe('reservations integration testing', () => {
                 expect(reservations).toHaveLength(1);
                 expect(reservations.find(r => r.id === reservationId)).toBeTruthy();
                 done();
-            })
+            });
     });
 
     it('should delete reservation', (done) => {
@@ -85,7 +82,7 @@ describe('reservations integration testing', () => {
                 expect(res.body.data.deleteReservation).toBe(true);
                 expect(err).toBeNull();
                 done();
-            })
+            });
     });
 
     it('should verify deleted reservation', (done) => {
@@ -100,6 +97,6 @@ describe('reservations integration testing', () => {
                 expect(reservations).toBeTruthy();
                 expect(reservations).toHaveLength(0);
                 done();
-            })
+            });
     });
-})
+});
