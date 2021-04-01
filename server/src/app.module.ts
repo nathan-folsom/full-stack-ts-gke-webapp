@@ -16,6 +16,7 @@ import {FriendRequestResolver} from "./friend-request/friend-request.resolver";
 import {FriendRequestService} from "./friend-request/friend-request.service";
 import {FriendsService} from "./friends/friends.service";
 import {FriendsResolver} from "./friends/friends.resolver";
+import {FriendsAdaptor} from "./friends/friends.adaptor";
 
 export const COOKIE_NAME = 'gymbuds';
 
@@ -54,7 +55,8 @@ export const COOKIE_NAME = 'gymbuds';
         FriendRequestResolver,
         FriendRequestService,
         FriendsService,
-        FriendsResolver
+        FriendsResolver,
+        FriendsAdaptor
     ],
 })
 export class AppModule {

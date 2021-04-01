@@ -1,7 +1,6 @@
 type Friend {
-    id: String!
     userId: String!
-    toUserId: String!
+    username: String!
     created: Date!
 }
 

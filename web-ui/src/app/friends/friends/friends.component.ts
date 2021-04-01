@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs";
+import {Friend, FriendRequestResponse} from "../../../../../server/src/db/graphql";
+import {FriendService} from "../../data-services/friend/friend.service";
+import {map} from "rxjs/operators";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-friends',
@@ -6,10 +11,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./friends.component.scss']
 })
 export class FriendsComponent implements OnInit {
+  friends$: Observable<Friend[]>;
+  usernameInput = new FormControl('');
 
-  constructor() { }
+  constructor(private friendService: FriendService) { }
 
   ngOnInit(): void {
+    this.friendService.fetchFriends();
+    this.friends$ = this.friendService.getFriends().pipe(
+      map(r => r.data.friends)
+    )
   }
 
+  sendRequest = () => {
+    this.friendService.sendRequest(this.usernameInput.value);
+    this.usernameInput.reset('');
+  }
 }

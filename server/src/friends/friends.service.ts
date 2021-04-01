@@ -1,9 +1,11 @@
 import {Injectable} from "@nestjs/common";
 import {PrismaService} from "../db/prisma.service";
+import {FriendsAdaptor} from "./friends.adaptor";
 
 @Injectable()
 export class FriendsService {
-    constructor(private db: PrismaService) {
+    constructor(private db: PrismaService,
+                private adaptor: FriendsAdaptor) {
     }
 
     connect = async (userId1: string, userId2: string) => {
@@ -18,11 +20,11 @@ export class FriendsService {
             }
     })
 
-    getForUser = (userId: string) => this.db.friendEntity.findMany({
+    getForUser = async (userId: string) => this.adaptor.toModels( await this.db.friendEntity.findMany({
         where: {
             userId
         }
-    })
+    }))
 
     delete = async (userId1: string, userId2: string) => {
         await this.db.friendEntity.deleteMany({

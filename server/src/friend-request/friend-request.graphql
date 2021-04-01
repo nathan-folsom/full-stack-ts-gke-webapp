@@ -17,6 +17,7 @@ enum FriendRequestResponse {
     connected
     already_connected
     username_not_found
+    invalid
 }
 
 extend type Mutation {

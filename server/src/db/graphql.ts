@@ -16,7 +16,8 @@ export enum FriendRequestResponse {
     success = "success",
     connected = "connected",
     already_connected = "already_connected",
-    username_not_found = "username_not_found"
+    username_not_found = "username_not_found",
+    invalid = "invalid"
 }
 
 export enum UserStatus {
@@ -55,9 +56,8 @@ export interface IMutation {
 }
 
 export interface Friend {
-    id: string;
     userId: string;
-    toUserId: string;
+    username: string;
     created: DateTime;
 }
 

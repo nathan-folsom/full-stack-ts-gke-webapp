@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {APOLLO_OPTIONS, gql} from 'apollo-angular';
 import {ApolloClientOptions, InMemoryCache, InMemoryCacheConfig, makeVar} from '@apollo/client/core';
 import {HttpLink} from 'apollo-angular/http';
-import {Reservation} from "../../../server/src/db/graphql";
+import {Friend, Reservation} from "../../../server/src/db/graphql";
 
 const options: InMemoryCacheConfig = {
   typePolicies: {
@@ -12,6 +12,11 @@ const options: InMemoryCacheConfig = {
           read() {
             return appState.reservations();
           }
+        },
+        friends: {
+          read() {
+            return appState.friends();
+          }
         }
       }
     }
@@ -19,13 +24,15 @@ const options: InMemoryCacheConfig = {
 }
 
 export const appState = {
-  reservations: makeVar<Reservation[]>([])
+  reservations: makeVar<Reservation[]>([]),
+  friends: makeVar<Friend[]>([])
 }
 
 const clientDefs = gql`
   extend type Query {
     getUser: User!
     reservations: [Reservation]!
+    friends: [Friend]!
   }
 `
 

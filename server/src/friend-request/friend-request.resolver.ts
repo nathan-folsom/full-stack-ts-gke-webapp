@@ -14,9 +14,9 @@ export class FriendRequestResolver {
         @Args('username') username: string
     ): Promise<FriendRequestResponse> {
         const user = await userPromise;
-        if (user) {
+        if (user && username !== user.username && username) {
             return this.friendRequestService.send(username, user.userId);
         }
-        return undefined;
+        return FriendRequestResponse.invalid;
     }
 }

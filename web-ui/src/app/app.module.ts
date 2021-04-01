@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/components/home/home.component';
@@ -18,7 +17,7 @@ import { CreateReservationComponent } from './home/components/create-reservation
 import {MatButtonModule} from "@angular/material/button";
 import {ReservationService} from "./data-services/reservation/reservation.service";
 import {MatSelectModule} from "@angular/material/select";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar} from "@angular/material/snack-bar";
 import { ReservationsComponent } from './home/components/reservations/reservations.component';
 import {
   GroupReservationsPipe, SortReservationsPipe,
@@ -27,8 +26,9 @@ import {
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {FriendsModule} from "./friends/friends.module";
 import { SettingsComponent } from './settings/settings.component';
+import {FriendService} from "./data-services/friend/friend.service";
+import {FriendsComponent} from "./friends/friends/friends.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { SettingsComponent } from './settings/settings.component';
     ViewReservationsComponent,
     GroupReservationsPipe,
     SortReservationsPipe,
-    SettingsComponent
+    SettingsComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
@@ -59,12 +60,13 @@ import { SettingsComponent } from './settings/settings.component';
     MatCardModule,
     MatDividerModule,
     MatToolbarModule,
-    FriendsModule
   ],
   providers: [
     AuthService,
     ReservationService,
-    MatSnackBar
+    MatSnackBar,
+    FriendService,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000, verticalPosition: 'top'}}
   ],
   bootstrap: [AppComponent]
 })
