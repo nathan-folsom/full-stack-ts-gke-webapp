@@ -12,6 +12,10 @@ import {ReservationResolver} from "./reservation/reservation.resolver";
 import {ReservationService} from "./reservation/reservation.service";
 import {GetUserPipe} from "./get-user.pipe";
 import {ReservationAdaptor} from "./reservation/reservation.adaptor";
+import {FriendRequestResolver} from "./friend-request/friend-request.resolver";
+import {FriendRequestService} from "./friend-request/friend-request.service";
+import {FriendsService} from "./friends/friends.service";
+import {FriendsResolver} from "./friends/friends.resolver";
 
 export const COOKIE_NAME = 'gymbuds';
 
@@ -46,7 +50,11 @@ export const COOKIE_NAME = 'gymbuds';
         ReservationResolver,
         ReservationService,
         GetUserPipe,
-        ReservationAdaptor
+        ReservationAdaptor,
+        FriendRequestResolver,
+        FriendRequestService,
+        FriendsService,
+        FriendsResolver
     ],
 })
 export class AppModule {

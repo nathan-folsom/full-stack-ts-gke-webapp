@@ -1,0 +1,14 @@
+type Friend {
+    id: String!
+    userId: String!
+    toUserId: String!
+    created: Date!
+}
+
+extend type Query {
+    getFriends: [Friend]
+}
+
+extend type Mutation {
+    deleteFriend(id: String!): Boolean
+}

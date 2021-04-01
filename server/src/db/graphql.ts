@@ -6,6 +6,19 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum FriendRequestStatus {
+    accepted = "accepted",
+    rejected = "rejected",
+    awaiting_response = "awaiting_response"
+}
+
+export enum FriendRequestResponse {
+    success = "success",
+    connected = "connected",
+    already_connected = "already_connected",
+    username_not_found = "username_not_found"
+}
+
 export enum UserStatus {
     ACTIVE = "ACTIVE",
     DELETED = "DELETED",
@@ -23,6 +36,39 @@ export interface CreateUserInput {
     password: string;
 }
 
+export interface FriendRequest {
+    id: string;
+    requesterId: string;
+    requesteeId: string;
+    createdDate: DateTime;
+    status: FriendRequestStatus;
+}
+
+export interface IMutation {
+    sendFriendRequest(username: string): FriendRequestResponse | Promise<FriendRequestResponse>;
+    deleteFriend(id: string): boolean | Promise<boolean>;
+    createReservation(reservation: CreateReservationInput): Reservation | Promise<Reservation>;
+    deleteReservation(reservationId: string): boolean | Promise<boolean>;
+    createUser(user?: CreateUserInput): boolean | Promise<boolean>;
+    login(username: string, password: string): boolean | Promise<boolean>;
+    logout(): boolean | Promise<boolean>;
+}
+
+export interface Friend {
+    id: string;
+    userId: string;
+    toUserId: string;
+    created: DateTime;
+}
+
+export interface IQuery {
+    getFriends(): Friend[] | Promise<Friend[]>;
+    allReservations(): Reservation[] | Promise<Reservation[]>;
+    myReservations(): Reservation[] | Promise<Reservation[]>;
+    user(): User | Promise<User>;
+    getUserId(username: string): string | Promise<string>;
+}
+
 export interface Reservation {
     id: string;
     userId: string;
@@ -30,21 +76,6 @@ export interface Reservation {
     time: DateTime;
     location: string;
     message?: string;
-}
-
-export interface IQuery {
-    allReservations(): Reservation[] | Promise<Reservation[]>;
-    myReservations(): Reservation[] | Promise<Reservation[]>;
-    user(): User | Promise<User>;
-    getUserId(username: string): string | Promise<string>;
-}
-
-export interface IMutation {
-    createReservation(reservation: CreateReservationInput): Reservation | Promise<Reservation>;
-    deleteReservation(reservationId: string): boolean | Promise<boolean>;
-    createUser(user?: CreateUserInput): boolean | Promise<boolean>;
-    login(username: string, password: string): boolean | Promise<boolean>;
-    logout(): boolean | Promise<boolean>;
 }
 
 export interface Session {

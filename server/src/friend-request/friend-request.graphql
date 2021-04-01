@@ -1,0 +1,24 @@
+type FriendRequest {
+    id: String!
+    requesterId: String!
+    requesteeId: String!
+    createdDate: Date!
+    status: FriendRequestStatus!
+}
+
+enum FriendRequestStatus {
+    accepted
+    rejected
+    awaiting_response
+}
+
+enum FriendRequestResponse {
+    success
+    connected
+    already_connected
+    username_not_found
+}
+
+extend type Mutation {
+    sendFriendRequest(username: String!): FriendRequestResponse!
+}

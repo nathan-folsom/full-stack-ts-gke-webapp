@@ -26,6 +26,15 @@ model FriendEntity {
     owner       UserEntity        @relation(fields: [userId], references: [userId])
 }
 
+model FriendRequestEntity {
+    id              String          @id @default(uuid())
+    senderId        String
+    recipientId     String
+    created         DateTime        @default(now())
+    status          String
+    @@unique([senderId, recipientId])
+}
+
 model ReservationEntity {
     id          String      @id @default(uuid())
     userId      String
