@@ -1,9 +1,10 @@
 type FriendRequest {
     id: String!
     requesterId: String!
-    requesteeId: String!
+    requesterUsername: String!
+    requesteeId: String
     createdDate: Date!
-    status: FriendRequestStatus!
+    status: FriendRequestStatus
 }
 
 enum FriendRequestStatus {
