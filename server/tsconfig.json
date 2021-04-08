@@ -11,7 +11,10 @@
     "baseUrl": "./",
     "incremental": true,
     "esModuleInterop": true,
-    "lib": ["esnext"]
+    "lib": ["esnext"],
+    "paths": {
+      "graphql-types": ["src/graphql"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

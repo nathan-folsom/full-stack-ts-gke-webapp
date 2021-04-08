@@ -1,7 +1,7 @@
 import {Args, Context, Mutation, Query, Resolver} from "@nestjs/graphql";
 import {ReservationService} from "./reservation.service";
 import {GetUserPipe} from "../get-user.pipe";
-import {CreateReservationInput, Reservation, User} from "../db/graphql";
+import {CreateReservationInput, Reservation, User} from "../graphql";
 
 @Resolver('Reservation')
 export class ReservationResolver {

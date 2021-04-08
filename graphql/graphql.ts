@@ -40,9 +40,10 @@ export interface CreateUserInput {
 export interface FriendRequest {
     id: string;
     requesterId: string;
-    requesteeId: string;
+    requesterUsername: string;
+    requesteeId?: string;
     createdDate: DateTime;
-    status: FriendRequestStatus;
+    status?: FriendRequestStatus;
 }
 
 export interface IMutation {

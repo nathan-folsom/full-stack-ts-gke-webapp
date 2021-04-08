@@ -1,5 +1,5 @@
 import {E2eTestFixture} from "../../test/e2e-test-fixture";
-import {FriendRequestStatus, FriendRequestResponse, User} from "../db/graphql";
+import {FriendRequestStatus, FriendRequestResponse, User} from "../graphql";
 import {PrismaService} from "../db/prisma.service";
 
 const SEND_REQUEST = `

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Observable} from "rxjs";
 import {ApolloQueryResult} from "@apollo/client/core";
-import {Reservation} from "../../../../../../server/src/db/graphql";
+import {Reservation} from "../../../../../../graphql/graphql";
 import {ReservationService} from "../../../data-services/reservation/reservation.service";
 import {AuthService} from "../../../data-services/auth/auth.service";
 import {User} from "../../../model/user";

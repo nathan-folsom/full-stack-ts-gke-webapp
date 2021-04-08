@@ -16,7 +16,10 @@
       "dom",
       "esnext.asynciterable"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "graphql-types": ["../server/src/graphql"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

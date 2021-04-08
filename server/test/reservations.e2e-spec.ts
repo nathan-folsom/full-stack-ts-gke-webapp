@@ -1,6 +1,6 @@
 import {TestUtil} from "./test-util";
 import {INestApplication} from "@nestjs/common";
-import {CreateReservationInput, Reservation, User} from "../src/db/graphql";
+import {CreateReservationInput, Reservation, User} from "src/graphql";
 
 describe('reservations integration testing', () => {
     let app: INestApplication;

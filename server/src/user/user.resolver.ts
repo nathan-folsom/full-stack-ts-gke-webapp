@@ -1,6 +1,6 @@
 import {Args, Context, Mutation, Query, Resolver} from "@nestjs/graphql";
 import {UserService} from "./user.service";
-import {CreateUserInput} from "../db/graphql";
+import {CreateUserInput} from "../graphql";
 import {ServerResponse} from "http";
 import {SessionsService} from "../sessions/sessions.service";
 import {COOKIE_NAME} from "../app.module";

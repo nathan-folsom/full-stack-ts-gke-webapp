@@ -5,6 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
 model UserEntity {
@@ -41,6 +42,7 @@ model ReservationEntity {
     time        DateTime
     location    String
     message     String?
+    owner       UserEntity  @relation(fields: [userId], references: [userId])
 }
 
 model SessionEntity {

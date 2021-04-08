@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Apollo} from "apollo-angular";
 import {FETCH_FRIENDS, GET_FRIENDS, SEND_FRIEND_REQUEST} from "./gql";
-import {Friend, FriendRequestResponse} from "../../../../../server/src/db/graphql";
+import {Friend, FriendRequestResponse} from "../../../../../graphql/graphql";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {map} from "rxjs/operators";
 import {appState} from "../../graphql.module";

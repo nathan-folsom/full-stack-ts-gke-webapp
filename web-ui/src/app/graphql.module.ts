@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {APOLLO_OPTIONS, gql} from 'apollo-angular';
 import {ApolloClientOptions, InMemoryCache, InMemoryCacheConfig, makeVar} from '@apollo/client/core';
 import {HttpLink} from 'apollo-angular/http';
-import {Friend, Reservation} from "../../../server/src/db/graphql";
+import {Friend, Reservation} from "../../../graphql/graphql";
 
 const options: InMemoryCacheConfig = {
   typePolicies: {

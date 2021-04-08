@@ -28,7 +28,7 @@ export const COOKIE_NAME = 'gymbuds';
         GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
             definitions: {
-                path: join(process.cwd(), 'src/db/graphql.ts'),
+                path: join(process.cwd(), 'src/graphql.ts')
             },
             path: '/api',
             context: context => {

@@ -1,5 +1,5 @@
 import {ReservationEntity} from "@prisma/client";
-import {Reservation} from "../db/graphql";
+import {Reservation} from "../graphql";
 import {UserService} from "../user/user.service";
 import {Injectable} from "@nestjs/common";
 

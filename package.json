@@ -4,7 +4,14 @@
   "description": "nest-react-heroku app boilerplate",
   "main": "server/dist/main.js",
   "scripts": {
-    "postinstall": "cd web-ui && npm install && npm run build && cd ../server && npm install && npm run build"
+    "build:web-ui": "cd web-ui && npm run build",
+    "install:web-ui": "cd web-ui && npm install",
+    "build:server": "cd server && npm run build",
+    "install:server": "cd server && npm install",
+    "install:docker": "cd web-ui && npm install --production && cd ../server && npm install --production",
+    "install": "cd web-ui && npm install && npm run build && cd ../server && npm install && npm run build",
+    "start:prod": "cd server && npm run start:prod",
+    "start": "cd server && npm start"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 import {Injectable} from "@nestjs/common";
 import {PrismaService} from "../db/prisma.service";
-import {FriendRequestResponse, FriendRequestStatus} from "../db/graphql";
+import {FriendRequestResponse, FriendRequestStatus} from "../graphql";
 import {UserService} from "../user/user.service";
 import {FriendRequestEntity} from "@prisma/client";
 import {FriendsService} from "../friends/friends.service";

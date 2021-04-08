@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {Friend, FriendRequestResponse} from "../../../../../server/src/db/graphql";
+import {Friend, FriendRequestResponse} from "../../../../../graphql/graphql";
 import {FriendService} from "../../data-services/friend/friend.service";
 import {map} from "rxjs/operators";
 import {FormControl} from "@angular/forms";

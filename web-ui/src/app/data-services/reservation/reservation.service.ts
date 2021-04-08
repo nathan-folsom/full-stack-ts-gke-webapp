@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Apollo} from "apollo-angular";
 import {CREATE_RESERVATION, DELETE_RESERVATION, FETCH_RESERVATIONS, GET_ALL_RESERVATIONS} from "./gql";
 import {map} from "rxjs/operators";
-import {CreateReservationInput, Reservation} from "../../../../../server/src/db/graphql";
+import {CreateReservationInput, Reservation} from "../../../../../graphql/graphql";
 import {appState} from "../../graphql.module";
 
 @Injectable()

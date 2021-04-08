@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import { FriendEntity } from "@prisma/client";
 import {UserService} from "../user/user.service";
-import {Friend} from "../db/graphql";
+import {Friend} from "../graphql";
 
 @Injectable()
 export class FriendsAdaptor {

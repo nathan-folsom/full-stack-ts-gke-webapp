@@ -1,6 +1,6 @@
 import {Args, Context, Mutation, Resolver} from "@nestjs/graphql";
 import {GetUserPipe} from "../get-user.pipe";
-import {FriendRequestResponse, User} from "../db/graphql";
+import {FriendRequestResponse, User} from "../graphql";
 import {FriendRequestService} from "./friend-request.service";
 
 @Resolver('FriendRequest')
