@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: gymbuds
+    volumes:
+      - dbdata:/var/lib/postgresql/data/
+    restart: always
+    ports:
+      - "5432:5432"
+
+  server:
+    image: gcr.io/sage-apogee-309823/gymbuds-server
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    restart: always
+    command: npm run start:prod
+    labels:
+      kompose.service.type: LoadBalancer
+
+volumes:
+  dbdata:

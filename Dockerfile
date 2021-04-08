@@ -1,5 +1,4 @@
 FROM node:12.18.0
-ENV PORT=8080
 WORKDIR /app
 
 COPY package.json ./
@@ -13,10 +12,7 @@ COPY . .
 
 RUN cd server && npx prisma generate
 
-EXPOSE 8080
-EXPOSE 4200
+EXPOSE 4000
 
-#RUN npm run build:web-ui
-#RUN npm run build:server
-
-CMD ["npm", "run", "start"]
+RUN npm run build:web-ui
+RUN npm run build:server
