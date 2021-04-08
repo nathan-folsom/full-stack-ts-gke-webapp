@@ -8,7 +8,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: personal-cluster
   GKE_ZONE: us-west1
-  DEPLOYMENT_NAME: gymbuds
+  DEPLOYMENT_NAME: server
   IMAGE: gymbuds-server
 
 jobs:
