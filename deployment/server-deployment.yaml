@@ -38,6 +38,6 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "npx prisma migrate deploy"]
+                command: ["/bin/sh", "-c", "cd server && npx prisma migrate deploy"]
       restartPolicy: Always
 status: {}
