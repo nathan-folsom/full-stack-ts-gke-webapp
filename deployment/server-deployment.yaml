@@ -35,5 +35,9 @@ spec:
           ports:
             - containerPort: 4000
           resources: {}
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "npx prisma migrate deploy"]
       restartPolicy: Always
 status: {}
